@@ -44,6 +44,9 @@ llm = [
 mcp = [
     "mcp>=1.0",
 ]
+docs = [
+    "mkdocs-material>=9.5",
+]
 all = [
     "jsonschema>=4.21",
     "anthropic>=0.25",
@@ -57,7 +60,7 @@ aibom-guard-mcp = "aibom_guard.mcp_server:main"
 [project.urls]
 Homepage = "https://github.com/AnousonePhyakeo/aibom-guard"
 Issues = "https://github.com/AnousonePhyakeo/aibom-guard/issues"
-Documentation = "https://github.com/AnousonePhyakeo/aibom-guard#readme"
+Documentation = "https://AnousonePhyakeo.github.io/aibom-guard"
 
 [tool.setuptools.packages.find]
 where = ["src"]

@@ -182,17 +182,25 @@ def test_spdx_contains_root_package(scan):
 # ============================================================
 
 def test_scan_extracts_hf_model_ids():
+    """from_pretrained() always captures; model= kwargs only capture owner/model format."""
     import tempfile
     with tempfile.TemporaryDirectory() as tmp:
         src = Path(tmp) / "model.py"
         src.write_text(
-            'from transformers import pipeline\n'
-            'clf = pipeline("text-classification", model="distilbert-base-uncased-finetuned-sst-2-english")\n'
+            'from transformers import pipeline, AutoModel\n'
+            # bare name via from_pretrained — always captured
+            'clf = AutoModel.from_pretrained("distilbert-base-uncased-finetuned-sst-2-english")\n'
+            # owner/model format via model= kwarg — captured
             'emb = pipeline("feature-extraction", model="sentence-transformers/all-MiniLM-L6-v2")\n'
+            # Anthropic API model name via model= kwarg — must NOT be captured
+            'resp = client.messages.create(model="claude-3-5-sonnet", max_tokens=1024)\n'
         )
         s = scan_project(tmp)
         assert "distilbert-base-uncased-finetuned-sst-2-english" in s.hf_model_ids
         assert "sentence-transformers/all-MiniLM-L6-v2" in s.hf_model_ids
+        assert "claude-3-5-sonnet" not in s.hf_model_ids, (
+            "Anthropic API model names must not appear as HuggingFace model IDs"
+        )
 
 
 def test_scan_hf_model_ids_in_bom():

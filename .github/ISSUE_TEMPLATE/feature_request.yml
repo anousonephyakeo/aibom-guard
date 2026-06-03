@@ -1,0 +1,74 @@
+name: Feature request
+description: Suggest an improvement — most additions are just YAML edits
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Most improvements to AIBOM-Guard are YAML edits (new AI library signatures, EU AI Act keywords, ISO controls) — no code required. Please describe what you need.
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Which area does this affect?
+      options:
+        - Scanner — new AI library detection
+        - EU AI Act classifier — new category or keyword
+        - ISO 42001 crosswalk
+        - NIST AI RMF
+        - HTML report / output format
+        - CLI / commands
+        - MCP server
+        - Documentation
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Describe the improvement
+    validations:
+      required: true
+
+  - type: dropdown
+    id: new_library
+    attributes:
+      label: Is this a new AI library to detect?
+      options:
+        - "No"
+        - "Yes"
+    validations:
+      required: true
+
+  - type: textarea
+    id: library_details
+    attributes:
+      label: If yes — library details
+      description: "PyPI / npm name, category (framework / model-provider / nlp / cv / etc.), vendor"
+      placeholder: |
+        PyPI name: my-ai-lib
+        Category: framework
+        Vendor: Example Corp
+    validations:
+      required: false
+
+  - type: textarea
+    id: standards_ref
+    attributes:
+      label: Any EU AI Act or ISO 42001 reference?
+      description: e.g. "Article 6(2)", "Annex III point 4", "ISO 42001 A.7.5"
+    validations:
+      required: false
+
+  - type: dropdown
+    id: new_dep
+    attributes:
+      label: Would this add a new mandatory dependency?
+      description: Core stays PyYAML-only. Optional extras are fine.
+      options:
+        - "No"
+        - "Yes — mandatory"
+        - "Yes — optional extra only"
+    validations:
+      required: true

@@ -1,0 +1,72 @@
+site_name: AIBOM-Guard
+site_url: https://AnousonePhyakeo.github.io/aibom-guard  # update if repo is transferred
+repo_url: https://github.com/AnousonePhyakeo/aibom-guard
+repo_name: AnousonePhyakeo/aibom-guard
+edit_uri: edit/main/docs/
+
+theme:
+  name: material
+  palette:
+    - scheme: default
+      primary: custom
+      accent: red
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      primary: custom
+      accent: red
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.top
+    - content.code.copy
+    - content.code.annotate
+    - search.suggest
+  icon:
+    repo: fontawesome/brands/github
+
+extra_css:
+  - stylesheets/extra.css
+
+nav:
+  - Home: index.md
+  - Getting Started:
+      - Quickstart: quickstart.md
+      - Optional Dependencies: optional-deps.md
+      - MCP Server: mcp-server.md
+  - Reference:
+      - Commands: commands.md
+      - Architecture: architecture.md
+  - Compliance Outputs:
+      - Benchmarks: benchmarks.md
+      - Example Compliance Report: examples/compliance-report.md
+      - Example Annex IV: examples/annex-iv.md
+  - Development:
+      - Contributing: contributing.md
+      - Changelog: changelog.md
+
+plugins:
+  - search
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - tables
+  - attr_list
+  - md_in_html
+  - pymdownx.snippets
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/AnousonePhyakeo/aibom-guard
+    - icon: fontawesome/brands/python
+      link: https://pypi.org/project/aibom-guard/

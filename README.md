@@ -8,10 +8,30 @@ existing ISO 27001 ISMS into ISO 42001 readiness — from the command line, in s
 [![Tests](https://img.shields.io/badge/tests-42%20passing-brightgreen)](tests/)
 [![CycloneDX](https://img.shields.io/badge/AI--BOM-CycloneDX%201.6-orange)](https://cyclonedx.org/)
 [![SPDX](https://img.shields.io/badge/AI--BOM-SPDX%203.0-blue)](https://spdx.dev/)
+[![Docs](https://img.shields.io/badge/docs-mkdocs--material-blue)](https://AnousonePhyakeo.github.io/aibom-guard)
 
 > ⚖️ **AIBOM-Guard is a triage and documentation aid — not legal advice, an audit, or
 > a conformity assessment.** All output should be confirmed by a qualified human.
 > High-risk and prohibited results must be escalated to compliance/legal.
+
+---
+
+## Table of Contents
+
+- [Why this exists](#why-this-exists)
+- [What it does](#what-it-does)
+- [Dashboard screenshot](#dashboard-screenshot)
+- [Quickstart](#quickstart)
+- [Commands](#commands)
+- [Sample output](#sample-output)
+- [How it works](#how-it-works)
+- [MCP server](#mcp-server)
+- [Optional dependencies](#optional-dependencies)
+- [Benchmark results](#benchmark-results)
+- [Documentation](#documentation)
+- [Contributing](#contributing)
+- [Standards referenced](#standards-referenced)
+- [License](#license)
 
 ---
 
@@ -35,44 +55,66 @@ and an HTML compliance report — all offline, no accounts required.
 
 | Capability | Output |
 |---|---|
-| 🔎 **AI component scan** | Detects 160+ AI libraries, model files, and API usage patterns across Python/JS |
+| 🔎 **AI component scan** | Detects 220+ AI libraries, model files, and API usage patterns across Python/JS |
 | 📦 **AI-BOM generation** | CycloneDX 1.6 JSON **and** SPDX 3.0 AI Profile — both validated |
 | ⚖️ **EU AI Act triage** | Provisional tier (prohibited / high / limited / minimal) with matched Annex III / Article 5 categories |
 | 🧭 **ISO 42001 gap analysis** | Net-new vs extend vs covered controls; readiness % vs ISO 27001 baseline |
 | 🗺️ **NIST AI RMF crosswalk** | Full 65-subcategory GOVERN/MAP/MEASURE/MANAGE framework with ISO 42001 crosswalks |
 | 📄 **Annex IV docgen** | Structured technical-documentation draft, pre-filled and `[TODO]`-flagged |
-| 🌐 **HTML report** | Self-contained, shareable compliance dashboard — no external dependencies |
+| 🌐 **HTML dashboard** | Self-contained, shareable compliance report — no server, no external dependencies |
 | 🧠 **LLM-assisted classification** | Optional Claude Haiku second opinion; never downgrades a rule-based tier |
 | 🔌 **Evidence collectors** | Read-only GitHub repo + HuggingFace Hub metadata → mapped to ISO 42001 controls |
 | 🤖 **MCP server** | Wrap the CLI as MCP tools for Claude Desktop, Cursor, or any MCP-compatible agent |
 
 ---
 
+## Dashboard screenshot
+
+![AIBOM-Guard compliance dashboard — HIGH RISK tier with summary metrics, AI component table, and ISO 42001 gap analysis](docs/assets/screenshot-dashboard.png)
+
+*The `--html` flag generates a self-contained dashboard. Open directly from disk — no server or internet connection required.*
+
+---
+
 ## Quickstart
 
-```bash
-pip install aibom-guard           # or: pip install -e ".[dev]" from source
+### Install
 
+```bash
+pip install aibom-guard
+```
+
+Or from source (editable + dev extras):
+
+```bash
+git clone https://github.com/AnousonePhyakeo/aibom-guard.git
+cd aibom-guard
+pip install -e ".[dev]"
+python -m pytest -q   # 42 tests — all should pass
+```
+
+### Run — full compliance package
+
+```bash
 aibom-guard all ./my-ai-project \
-  --name "Hiring Assistant" \
-  --use-case "resume screening and candidate ranking for recruitment" \
+  --name "My System" \
+  --use-case "describe what the system does in plain language" \
   --html \
   -o reports/
 ```
 
-`reports/` will contain:
+One command generates **8 output files** in `reports/`:
 
 | File | Contents |
 |------|----------|
-| `compliance_report.md` | Full Markdown compliance report |
-| `compliance_report.html` | Self-contained HTML dashboard |
+| `compliance_report.html` | Interactive compliance dashboard (open in browser) |
+| `compliance_report.md` | Same report in Markdown (CI-friendly) |
 | `aibom.cdx.json` | CycloneDX 1.6 AI-BOM |
 | `aibom.spdx.json` | SPDX 3.0 AI-BOM |
-| `classification.json` | EU AI Act tier + evidence |
-| `iso42001_gaps.json` | Gap analysis JSON |
-| `annex_iv.md` | Annex IV technical documentation draft |
-| `validation.txt` | BOM validation result |
-| `scan.json` | Raw component inventory |
+| `classification.json` | EU AI Act tier + matched categories |
+| `iso42001_gaps.json` | ISO 42001 control gap analysis |
+| `annex_iv.md` | EU AI Act Annex IV technical documentation draft |
+| `validation.txt` | CycloneDX schema validation result |
 
 ---
 
@@ -87,16 +129,16 @@ aibom-guard all ./project \
   --html           # HTML dashboard
   --nist           # include NIST AI RMF crosswalk
   --llm            # Claude Haiku second opinion (requires ANTHROPIC_API_KEY)
-  --validate       # exit non-zero if BOM has errors
+  --validate       # exit non-zero if BOM has schema errors
   -o reports/
 ```
 
 ### `scan` — AI component detection only
 
 ```bash
-aibom-guard scan ./project -o reports/
-aibom-guard scan ./project --format spdx -o reports/   # SPDX 3.0 output
-aibom-guard scan ./project --validate                  # validate emitted BOM
+aibom-guard scan ./project
+aibom-guard scan ./project --format spdx    # SPDX 3.0 output
+aibom-guard scan ./project --validate       # validate emitted BOM
 ```
 
 ### `classify` — EU AI Act tier
@@ -124,9 +166,7 @@ aibom-guard validate reports/aibom.cdx.json --full   # full JSON Schema check
 ### `collect` — evidence collectors
 
 ```bash
-aibom-guard collect ./project \
-  --github myorg/my-repo \   # maps branch protection / SAST / secret scanning to ISO 42001
-  -o reports/
+aibom-guard collect ./project --github myorg/my-repo -o reports/
 ```
 
 ---
@@ -138,7 +178,7 @@ flags it as high-risk on two Annex III grounds:
 
 ```
 EU AI Act tier (provisional)       🔴 HIGH-RISK
-AI components detected             10
+AI components detected             9
 ISO 42001 readiness (vs 27001)     35%
 ISO 42001 net-new controls         13
 
@@ -148,13 +188,15 @@ Matched categories:
   [limited] T1-chatbot       — openai, anthropic
 ```
 
+> For the full visual dashboard see the [screenshot above](#dashboard-screenshot) or run with `--html`.
+
 ---
 
 ## How it works
 
 ```
                ┌──────────────┐
-  target repo ─►    scanner   ├─► AIComponent[]  (160+ sigs, 13 API patterns, HF model IDs)
+  target repo ─►    scanner   ├─► AIComponent[]  (220+ sigs, 14 API patterns, HF model IDs)
                └──────┬───────┘
                       ▼
        ┌──────────────┼───────────────┬─────────────────┬───────────────┐
@@ -174,28 +216,28 @@ Matched categories:
                                                    compliance_report.html / .md
 ```
 
-The accuracy lives in four editable YAML knowledge bases under `src/aibom_guard/data/`:
+Accuracy lives in four editable YAML knowledge bases under `src/aibom_guard/data/`:
 
 | File | Contents |
 |------|----------|
-| `ai_libraries.yaml` | 160+ AI library signatures (Python + JS) |
-| `eu_ai_act.yaml` | Risk categories + keywords for all tiers |
-| `iso_crosswalk.yaml` | Full ISO 27001 ↔ 42001 mapping (38 Annex A controls) |
-| `nist_ai_rmf.yaml` | NIST AI RMF 1.0 — 65 subcategories with ISO 42001 crosswalks |
+| `ai_libraries.yaml` | 220+ AI library signatures (Python + JS) |
+| `eu_ai_act.yaml` | 21 risk categories + keywords for all tiers |
+| `iso_crosswalk.yaml` | ISO 27001 ↔ 42001 mapping (42 controls) |
+| `nist_ai_rmf.yaml` | NIST AI RMF 1.0 — subcategories with ISO 42001 crosswalks |
 
-Improving coverage usually means editing YAML, not code.
+Improving coverage usually means **editing YAML, not code**.
 
 ---
 
 ## MCP server
 
-Install the MCP server to call AIBOM-Guard directly from Claude Desktop or Cursor:
+Use AIBOM-Guard as tools directly from Claude Desktop or Cursor:
 
 ```bash
 pip install "aibom-guard[mcp]"
 ```
 
-Add to `~/.claude_desktop_config.json` (or equivalent):
+Add to `~/Library/Application Support/Claude/claude_desktop_config.json`:
 
 ```json
 {
@@ -207,58 +249,70 @@ Add to `~/.claude_desktop_config.json` (or equivalent):
 }
 ```
 
-Available MCP tools: `scan`, `classify_risk`, `iso_gaps`, `nist_rmf`, `validate`, `full_report`.
+Available tools: `scan`, `classify_risk`, `iso_gaps`, `nist_rmf`, `validate`, `full_report`.  
+→ [Full MCP setup guide](https://AnousonePhyakeo.github.io/aibom-guard/mcp-server/)
 
 ---
 
 ## Optional dependencies
 
 ```bash
-pip install "aibom-guard[validate]"   # full JSON Schema BOM validation
+pip install "aibom-guard[validate]"   # full JSON Schema BOM validation (requires network)
 pip install "aibom-guard[llm]"        # LLM-assisted classification (Claude Haiku)
 pip install "aibom-guard[mcp]"        # MCP server for Claude Desktop / Cursor
 pip install "aibom-guard[all]"        # everything above
 ```
 
+→ [Full optional dependencies guide](https://AnousonePhyakeo.github.io/aibom-guard/optional-deps/)
+
 ---
 
 ## Benchmark results
 
-Five real open-source AI repos scanned — see [`docs/benchmarks.md`](docs/benchmarks.md).
+Five real open-source AI repos scanned — full methodology and per-repo analysis: [docs/benchmarks.md](docs/benchmarks.md).
 
 | Repo | Tier | Components | HF models |
 |------|------|-----------|-----------|
 | openai/whisper | limited | 6 | 0 |
-| microsoft/autogen | high* | 25 | 37 |
-| roboflow/supervision | high* | 11 | 1 |
+| microsoft/autogen | high | 25 | 37 |
+| roboflow/supervision | high | 11 | 1 |
 | guidance-ai/guidance | limited | 21 | 7 |
 | Project-MONAI/MONAI | **HIGH** ✓ | 16 | 0 |
 
-\* Tier after false-positive keyword fix (see benchmarks doc for methodology).
-MONAI correctly triggers HIGH-RISK on the A3-medical Annex III category.
+MONAI correctly triggers HIGH-RISK on the `A3-medical` Annex III category ("medical imaging", "clinical decision").
 
 ---
 
-## Built to pair with Claude Code
+## Documentation
 
-This repo ships `.claude/skills/` (four custom skills) and a `compliance-reviewer`
-subagent. Install [ECC](https://github.com/affaan-m/ECC) to get the full harness.
+Full documentation: **<https://AnousonePhyakeo.github.io/aibom-guard>**
 
-```bash
-# Run AIBOM-Guard as MCP tools directly from Claude
-aibom-guard-mcp
+| Page | Contents |
+|------|----------|
+| [Quickstart](https://AnousonePhyakeo.github.io/aibom-guard/quickstart/) | Install, first run, output files explained |
+| [Commands](https://AnousonePhyakeo.github.io/aibom-guard/commands/) | Full CLI reference for all 6 subcommands |
+| [Architecture](https://AnousonePhyakeo.github.io/aibom-guard/architecture/) | Pipeline stages, module responsibilities |
+| [Benchmarks](https://AnousonePhyakeo.github.io/aibom-guard/benchmarks/) | Detection accuracy on 5 real AI repos |
+| [Example compliance report](https://AnousonePhyakeo.github.io/aibom-guard/examples/compliance-report/) | See what a full report looks like |
+| [Example Annex IV](https://AnousonePhyakeo.github.io/aibom-guard/examples/annex-iv/) | See what the generated technical doc looks like |
+| [Contributing](CONTRIBUTING.md) | How to contribute — mostly YAML edits |
+| [Changelog](CHANGELOG.md) | Version history |
 
-# Or drive the CLI from Claude Code
-claude --dangerously-skip-permissions -p \
-  'aibom-guard all . --name "MyApp" --use-case "hiring AI" --html -o reports/'
-```
+---
+
+## Contributing
+
+Contributions welcome. Most improvements are YAML edits — adding AI library signatures,
+EU AI Act keywords, or ISO 42001 control mappings. No deep code knowledge required.
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for setup, conventions, and the PR checklist.
 
 ---
 
 ## Standards referenced
 
 - Regulation (EU) 2024/1689 (EU AI Act) — Articles 5, 6, 11, 12, 50, 72; Annex III; Annex IV
-- ISO/IEC 42001:2023 — AI management systems (full 38-control Annex A)
+- ISO/IEC 42001:2023 — AI management systems (full 42-control Annex A)
 - ISO/IEC 27001:2022 — information security management (crosswalk baseline)
 - NIST AI RMF 1.0 — GOVERN / MAP / MEASURE / MANAGE (65 subcategories)
 - CycloneDX 1.6 — AI-BOM serialisation format

@@ -1,0 +1,73 @@
+name: Bug report
+description: Something is wrong with a scan, classification, or output
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for filing a bug. Please fill in as much detail as you can — especially for false positives in the EU AI Act tier.
+
+  - type: input
+    id: version
+    attributes:
+      label: AIBOM-Guard version
+      description: Run `aibom-guard --version` or `pip show aibom-guard`
+      placeholder: "0.2.0"
+    validations:
+      required: true
+
+  - type: input
+    id: python
+    attributes:
+      label: Python version
+      placeholder: "3.12.3"
+    validations:
+      required: true
+
+  - type: textarea
+    id: command
+    attributes:
+      label: Command you ran
+      render: bash
+      placeholder: "aibom-guard all ./my-project --name 'My App' --use-case '...' -o reports/"
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected output / behaviour
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual output / error
+      render: text
+    validations:
+      required: true
+
+  - type: dropdown
+    id: false_positive
+    attributes:
+      label: Is this a false positive in the EU AI Act tier?
+      options:
+        - "No"
+        - "Yes — tier too high (e.g. benign repo flagged as HIGH/PROHIBITED)"
+        - "Yes — wrong category matched"
+        - "Not sure"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: target_type
+    attributes:
+      label: Target project type
+      options:
+        - Python
+        - JavaScript / TypeScript
+        - Mixed
+        - Other
+    validations:
+      required: false

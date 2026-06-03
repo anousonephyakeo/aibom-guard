@@ -48,13 +48,18 @@ _USAGE_PATTERNS = [
     ("together", re.compile(r"\btogether\b|TogetherAI\(", re.I)),
 ]
 
-# Extracts HuggingFace model IDs from:
-#   from_pretrained("owner/model")
-#   pipeline("task", model="owner/model")
-#   AutoModel.from_pretrained("model-name")
-_HF_MODEL_RE = re.compile(
-    r'(?:from_pretrained\s*\(\s*|model\s*=\s*)'
-    r'["\']([A-Za-z0-9][A-Za-z0-9_\-./]{2,79})["\']'
+# Extracts HuggingFace model IDs from source code.
+#
+# Two separate patterns to avoid false positives:
+#   1. from_pretrained("anything")  — always HuggingFace, capture everything
+#   2. model="owner/model"          — only capture if it contains "/" (owner/model
+#      format); bare names like "claude-3-5-sonnet" or "gpt-4" are API model
+#      names from Anthropic/OpenAI, not HF model IDs.
+_HF_PRETRAINED_RE = re.compile(
+    r'from_pretrained\s*\(\s*["\']([A-Za-z0-9][A-Za-z0-9_\-./]{2,79})["\']'
+)
+_HF_MODEL_KWARG_RE = re.compile(
+    r'\bmodel\s*=\s*["\']([A-Za-z0-9][A-Za-z0-9_\-]{0,63}/[A-Za-z0-9][A-Za-z0-9_\-./]{0,63})["\']'
 )
 _HF_MODEL_SKIP = frozenset({
     "cpu", "cuda", "auto", "true", "false", "utf-8", "utf8",
@@ -242,13 +247,14 @@ def scan_project(target: str | Path, max_corpus_chars: int = 200_000) -> ScanRes
                             name=label, kind="api-usage", category="usage",
                             evidence=str(path.relative_to(root)),
                         ))
-            # Extract HuggingFace model IDs from from_pretrained() calls
+            # Extract HuggingFace model IDs from source code.
             if suffix in _SOURCE_SUFFIXES:
-                for m in _HF_MODEL_RE.finditer(text):
-                    mid = m.group(1)
-                    if mid.lower() not in _HF_MODEL_SKIP and mid not in seen_hf:
-                        seen_hf.add(mid)
-                        result.hf_model_ids.append(mid)
+                for pat in (_HF_PRETRAINED_RE, _HF_MODEL_KWARG_RE):
+                    for m in pat.finditer(text):
+                        mid = m.group(1)
+                        if mid.lower() not in _HF_MODEL_SKIP and mid not in seen_hf:
+                            seen_hf.add(mid)
+                            result.hf_model_ids.append(mid)
             if corpus_len < max_corpus_chars:
                 snippet = text[: max_corpus_chars - corpus_len]
                 corpus_parts.append(snippet.lower())
