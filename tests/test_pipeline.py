@@ -275,6 +275,18 @@ def test_classifier_flags_medical():
     assert any("medical" in cid or "A3" in cid for cid in cat_ids)
 
 
+def test_classifier_no_false_positive_data_manipulation():
+    """'data manipulation' / 'image manipulation' must NOT trigger the prohibited tier."""
+    s = ScanResult(target="x")
+    s.components.append(AIComponent(name="numpy", kind="library", category="data"))
+    # Docstring-style text found in many CV and data libraries
+    result = classify(s, use_case="image manipulation and data manipulation utilities for arrays")
+    prohibited_hits = [h for h in result.hits if h.tier == "prohibited"]
+    assert not prohibited_hits, (
+        f"False positive: prohibited hit(s) from benign use-case: {prohibited_hits}"
+    )
+
+
 # ============================================================
 # Milestone 3 — LLM classifier (offline / no-key path)
 # ============================================================

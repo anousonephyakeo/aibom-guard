@@ -41,13 +41,18 @@ validate = [
 llm = [
     "anthropic>=0.25",
 ]
+mcp = [
+    "mcp>=1.0",
+]
 all = [
     "jsonschema>=4.21",
     "anthropic>=0.25",
+    "mcp>=1.0",
 ]
 
 [project.scripts]
 aibom-guard = "aibom_guard.cli:main"
+aibom-guard-mcp = "aibom_guard.mcp_server:main"
 
 [project.urls]
 Homepage = "https://github.com/AnousonePhyakeo/aibom-guard"

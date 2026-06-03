@@ -30,12 +30,20 @@ prohibited:
       keywords:
         - "subliminal"
         - "dark pattern"
-        - "manipulat"
+        - "social manipulation"
+        - "psychological manipulation"
         - "subconscious manipulation"
         - "psychographic targeting harm"
         - "bypass rational agency"
         - "cognitive bias exploit"
         - "subconscious influence"
+        - "manipulate users"
+        - "manipulate behaviour"
+        - "manipulate behavior"
+        - "behaviour manipulation"
+        - "behavior manipulation"
+        - "nudge without consent"
+        - "exploit cognitive bias"
 
     - id: P3-exploit-vulnerable
       name: "Exploiting vulnerabilities of specific groups"
