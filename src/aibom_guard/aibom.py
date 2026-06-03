@@ -38,13 +38,28 @@ def _bom_ref(*parts: str) -> str:
     return f"aibom:{h}"
 
 
+def _dedupe_components(components: list) -> list:
+    """Deduplicate by name, preferring library > model-file > api-usage.
+
+    Monorepos can produce multiple entries for the same package (e.g. 'openai'
+    as both a library hit from requirements.txt and an api-usage hit from source).
+    Keep the most informative entry per name.
+    """
+    _kind_order = {"library": 0, "model-file": 1, "api-usage": 2}
+    seen: dict = {}
+    for c in sorted(components, key=lambda x: _kind_order.get(x.kind, 99)):
+        if c.name not in seen:
+            seen[c.name] = c
+    return list(seen.values())
+
+
 def build_aibom(scan: "ScanResult", *, app_name: str = "target-application") -> dict:
     """Return a CycloneDX 1.6 AI-BOM dict for the given scan."""
     now = _dt.datetime.now(_dt.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
     hf_model_ids = getattr(scan, "hf_model_ids", [])
 
     components = []
-    for c in scan.components:
+    for c in _dedupe_components(scan.components):
         comp: dict = {
             "bom-ref": _bom_ref(c.name, c.kind, c.evidence),
             "type": _CDX_TYPE.get(c.category, "library"),
@@ -130,7 +145,7 @@ def build_spdx(scan: "ScanResult", *, app_name: str = "target-application") -> d
     }]
     relationships: list[dict] = []
 
-    for c in scan.components:
+    for c in _dedupe_components(scan.components):
         elem_id = f"https://aibom-guard/pkg/{_bom_ref(c.name, c.kind, c.evidence)}"
         is_model = c.kind == "model-file" or c.category in ("nlp", "model-provider")
 
