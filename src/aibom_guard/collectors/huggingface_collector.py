@@ -16,12 +16,16 @@ A.7.5 (data provenance), and A.6.2.7 (technical documentation).
 from __future__ import annotations
 
 import json
+import re
 import urllib.error
 import urllib.request
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from ..scanner import ScanResult
+
+# Allow only safe model ID characters: owner/model-name (no path traversal)
+_SAFE_MODEL_ID = re.compile(r'^[A-Za-z0-9][A-Za-z0-9._\-]{0,63}(/[A-Za-z0-9][A-Za-z0-9._\-]{0,63})?$')
 
 _HF_API = "https://huggingface.co/api/models"
 _TIMEOUT = 10
@@ -62,13 +66,15 @@ def collect_hf_models(scan: "ScanResult") -> dict:
 
 
 def _fetch_model(model_id: str) -> dict:
+    if not _SAFE_MODEL_ID.match(model_id):
+        return {"model_id": model_id, "error": "skipped: unsafe model ID characters"}
     url = f"{_HF_API}/{model_id}"
     try:
         req = urllib.request.Request(
             url,
             headers={"User-Agent": "aibom-guard", "Accept": "application/json"},
         )
-        with urllib.request.urlopen(req, timeout=_TIMEOUT) as resp:
+        with urllib.request.urlopen(req, timeout=_TIMEOUT) as resp:  # nosec B310 — HTTPS to huggingface.co only; model_id validated above
             data = json.loads(resp.read())
 
         return {

@@ -17,12 +17,22 @@ from __future__ import annotations
 
 import json
 import os
+import re
 import urllib.error
 import urllib.request
 
 
 _GH_API = "https://api.github.com"
 _TIMEOUT = 10
+_SAFE_NAME = re.compile(r'^[A-Za-z0-9][A-Za-z0-9._\-]{0,99}$')
+
+
+def _validate_repo_slug(owner: str, repo: str) -> bool:
+    """Return True only if owner and repo contain safe characters.
+
+    Prevents path-traversal in the constructed API URL (e.g. owner='../').
+    """
+    return bool(_SAFE_NAME.match(owner) and _SAFE_NAME.match(repo))
 
 
 def collect_github(
@@ -42,6 +52,13 @@ def collect_github(
         Dict with ``source``, ``controls`` (control ID → evidence), and
         optionally ``error`` if the token is missing.
     """
+    if not _validate_repo_slug(owner, repo):
+        return {
+            "source": f"github:{owner}/{repo}",
+            "error": "Invalid owner or repo name — only alphanumeric, '.', '-', '_' allowed",
+            "controls": {},
+        }
+
     token = token or os.environ.get("GITHUB_TOKEN", "")
     if not token:
         return {
@@ -141,7 +158,7 @@ def collect_github(
             "title": "Secret scanning (tooling security)",
             "source": "secret_scanning",
             "evidence": {
-                "secret_scanning_active": True,
+                "secret_scanning_active": True,  # nosec B105 — boolean flag, not a password
                 "open_alerts": len(secrets),
                 "secrets_found": bool(secrets),
             },
@@ -150,7 +167,7 @@ def collect_github(
     else:
         evidence["controls"]["A.6.1.3_secrets"] = {
             "title": "Secret scanning",
-            "evidence": {"secret_scanning_active": False},
+            "evidence": {"secret_scanning_active": False},  # nosec B105
             "note": "Secret scanning not active or alerts not accessible",
         }
 
@@ -175,7 +192,7 @@ def collect_github(
 def _get(url: str, headers: dict) -> dict | list:
     try:
         req = urllib.request.Request(url, headers=headers)
-        with urllib.request.urlopen(req, timeout=_TIMEOUT) as resp:
+        with urllib.request.urlopen(req, timeout=_TIMEOUT) as resp:  # nosec B310 — HTTPS to api.github.com only
             return json.loads(resp.read())
     except urllib.error.HTTPError as e:
         return {"error": f"HTTP {e.code}: {e.reason}", "url": url}

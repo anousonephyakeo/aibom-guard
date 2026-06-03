@@ -111,7 +111,7 @@ def _try_jsonschema(bom: dict, errors: list[str]) -> None:
     import json
     import urllib.request
     try:
-        with urllib.request.urlopen(_CDX_SCHEMA_URL, timeout=8) as resp:
+        with urllib.request.urlopen(_CDX_SCHEMA_URL, timeout=8) as resp:  # nosec B310 — hardcoded HTTPS URL to cyclonedx.org schema
             schema = json.loads(resp.read())
         validator = jsonschema.Draft7Validator(schema)
         for err in validator.iter_errors(bom):
