@@ -10,6 +10,10 @@ env/
 .pytest_cache/
 .mypy_cache/
 .DS_Store
+# Claude Code — personal permission settings must never be committed to a public repo.
+# bypassPermissions + Bash(*) would give anyone who clones + runs `claude` full shell access.
+.claude/settings.json
+.claude/settings.local.json
 # generated compliance output (keep the dir, ignore contents except demo)
 reports/*
 !reports/.gitkeep
