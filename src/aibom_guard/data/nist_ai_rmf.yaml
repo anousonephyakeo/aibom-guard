@@ -1,0 +1,533 @@
+# NIST AI Risk Management Framework (AI RMF 1.0, January 2023)
+# Source: NIST AI 100-1 — https://doi.org/10.6028/NIST.AI.100-1
+#
+# Structure: 4 core functions → categories → subcategories
+# Functions: GOVERN | MAP | MEASURE | MANAGE
+#
+# Used by: crosswalk --framework nist
+# This is a practitioner mapping; not an official NIST publication.
+
+framework: "NIST AI RMF 1.0"
+source: "NIST AI 100-1 (January 2023)"
+
+functions:
+  - id: GOVERN
+    name: "GOVERN"
+    description: >
+      Cultivate organizational culture of AI risk management. Establish policies,
+      processes, procedures, and practices across the organization related to
+      AI risk identification, assessment, and management.
+    categories:
+      - id: GOVERN-1
+        name: "Policies, processes, procedures, and practices"
+        subcategories:
+          - id: GOVERN-1.1
+            title: "Organizational policies for AI risk management"
+            description: >
+              Policies, processes, procedures, and practices are in place for
+              AI risk management and are regularly reviewed and updated.
+            iso42001_crosswalk: ["A.2.2", "A.2.3"]
+            evidence_questions:
+              - "Is there a documented AI risk management policy?"
+              - "When was it last reviewed?"
+
+          - id: GOVERN-1.2
+            title: "Accountability for AI risk management"
+            description: >
+              Accountability for organizational roles and responsibilities for
+              AI risk management is established.
+            iso42001_crosswalk: ["A.3.2"]
+            evidence_questions:
+              - "Who owns AI risk decisions in the organization?"
+              - "Is an AI ethics/responsibility role defined?"
+
+          - id: GOVERN-1.3
+            title: "AI risk management workforce competencies"
+            description: >
+              Organizational teams are committed to a culture that considers
+              and communicates AI risk.
+            iso42001_crosswalk: ["A.4.6"]
+            evidence_questions:
+              - "Do AI teams have training in responsible AI?"
+              - "Is there a code of conduct for AI work?"
+
+          - id: GOVERN-1.4
+            title: "Organizational teams are committed to transparency"
+            description: >
+              Organizational teams are committed to transparency with
+              AI systems and risk management decisions.
+            iso42001_crosswalk: ["A.8.2", "A.8.5"]
+
+          - id: GOVERN-1.5
+            title: "Organizational risk tolerance"
+            description: >
+              Organizational risk tolerances for AI are established, communicated,
+              and reviewed periodically.
+            iso42001_crosswalk: ["A.5.2", "A.5.3"]
+
+          - id: GOVERN-1.6
+            title: "Policies for engagement with AI actors"
+            description: >
+              Policies are established to enable the establishment, expansion,
+              and the management of beneficial uses of AI.
+            iso42001_crosswalk: ["A.9.2", "A.9.3"]
+
+          - id: GOVERN-1.7
+            title: "Processes for AI risk management"
+            description: >
+              Processes and procedures for AI risk management are established,
+              maintained, and made available to relevant AI actors.
+            iso42001_crosswalk: ["A.5.2", "A.5.3", "A.6.1.2"]
+
+      - id: GOVERN-2
+        name: "Accountability structures for AI risk management"
+        subcategories:
+          - id: GOVERN-2.1
+            title: "Roles and responsibilities for risk management"
+            description: >
+              Roles and responsibilities and lines of communication related to
+              AI risk are documented and are in place.
+            iso42001_crosswalk: ["A.3.2", "A.3.3"]
+
+          - id: GOVERN-2.2
+            title: "Teams are committed to AI risk management"
+            description: >
+              The organization's personnel policies support its AI risk management
+              commitments.
+            iso42001_crosswalk: ["A.3.4", "A.4.6"]
+
+      - id: GOVERN-3
+        name: "Workforce diversity and inclusion"
+        subcategories:
+          - id: GOVERN-3.1
+            title: "AI testing teams reflect diversity"
+            description: >
+              AI testing is conducted by teams with diverse backgrounds,
+              perspectives, and domain expertise.
+            iso42001_crosswalk: ["A.6.2.4", "A.5.4"]
+
+          - id: GOVERN-3.2
+            title: "Teams are committed to diversity"
+            description: >
+              Policies, processes, procedures, and practices reflect a commitment
+              to diversity, equity, and inclusion.
+            iso42001_crosswalk: ["A.5.4", "A.5.5"]
+
+      - id: GOVERN-4
+        name: "Organizational teams are committed to risk documentation"
+        subcategories:
+          - id: GOVERN-4.1
+            title: "Organizational policies for AI documentation"
+            description: >
+              Organizational policies require documentation of AI systems'
+              intended purposes, potential impacts, metrics, and performance.
+            iso42001_crosswalk: ["A.6.2.7", "A.8.2"]
+
+          - id: GOVERN-4.2
+            title: "Risk documentation is accessible"
+            description: >
+              Risk documentation is regularly reviewed and accessible.
+            iso42001_crosswalk: ["A.6.2.7", "A.8.5"]
+
+      - id: GOVERN-5
+        name: "Organizational risk priorities are reflected in practice"
+        subcategories:
+          - id: GOVERN-5.1
+            title: "AI risk mitigation efforts are funded"
+            description: >
+              Organizational risk priorities for AI are reflected in the
+              allocation of resources.
+            iso42001_crosswalk: ["A.4.2", "A.4.6"]
+
+          - id: GOVERN-5.2
+            title: "AI risk management is integrated"
+            description: >
+              AI risk management is integrated into enterprise risk management.
+            iso42001_crosswalk: ["A.2.3", "A.5.2"]
+
+      - id: GOVERN-6
+        name: "AI risk management policies for third parties"
+        subcategories:
+          - id: GOVERN-6.1
+            title: "Policies for third-party AI"
+            description: >
+              Policies and procedures are in place for AI risk management
+              of third-party entities.
+            iso42001_crosswalk: ["A.10.2", "A.10.3", "A.10.4"]
+
+          - id: GOVERN-6.2
+            title: "AI risk management for contingency plans"
+            description: >
+              Contingency processes are in place for failures of third-party
+              AI systems.
+            iso42001_crosswalk: ["A.10.2", "A.10.4"]
+
+  - id: MAP
+    name: "MAP"
+    description: >
+      Categorize and understand AI risks, contexts, and impacts. Establish the
+      risk context to enable prioritization.
+    categories:
+      - id: MAP-1
+        name: "Context is established for framing AI risks"
+        subcategories:
+          - id: MAP-1.1
+            title: "Context established for AI risks"
+            description: >
+              Context is established for the AI system and its risks including
+              use context, stakeholders, and scope.
+            iso42001_crosswalk: ["A.9.4", "A.6.2.2"]
+
+          - id: MAP-1.2
+            title: "Interdisciplinary AI teams"
+            description: >
+              Interdisciplinary AI actors, competencies, skills, and capacities
+              for AI risk management are established.
+            iso42001_crosswalk: ["A.3.2", "A.4.6"]
+
+          - id: MAP-1.3
+            title: "Scientific findings and methods applied"
+            description: >
+              The organization's AI risk management posture is evaluated and
+              documented via risk identification and assessment methods.
+            iso42001_crosswalk: ["A.5.2", "A.5.3"]
+
+          - id: MAP-1.5
+            title: "Organizational risk tolerance guides decisions"
+            description: >
+              Likelihood and magnitude of each identified impact are estimated
+              and documented.
+            iso42001_crosswalk: ["A.5.2", "A.5.4"]
+
+          - id: MAP-1.6
+            title: "Risk tolerance is communicated"
+            description: >
+              Risk tolerance is communicated to and understood by relevant
+              organizational teams.
+            iso42001_crosswalk: ["A.3.3", "A.9.2"]
+
+      - id: MAP-2
+        name: "Scientific understanding of risks is used"
+        subcategories:
+          - id: MAP-2.1
+            title: "Scientific understanding of AI risks is used"
+            description: >
+              Scientific understanding of AI risks is used to inform
+              risk management decisions.
+            iso42001_crosswalk: ["A.5.2", "A.6.2.4"]
+
+          - id: MAP-2.2
+            title: "AI system's risk and benefits are evaluated"
+            description: >
+              AI system's risk and benefits are evaluated using multiple
+              perspectives and analytical approaches.
+            iso42001_crosswalk: ["A.5.3", "A.5.4", "A.5.5"]
+
+          - id: MAP-2.3
+            title: "AI system risks are prioritized"
+            description: >
+              AI risk and benefit data and results are informed by input
+              from domain experts and affected communities.
+            iso42001_crosswalk: ["A.5.4", "A.5.5"]
+
+      - id: MAP-3
+        name: "AI risks and benefits to third parties, society, and nature"
+        subcategories:
+          - id: MAP-3.1
+            title: "Benefits of AI are understood"
+            description: >
+              Potential benefits of the AI system are identified and
+              communicated.
+            iso42001_crosswalk: ["A.8.2", "A.8.5"]
+
+          - id: MAP-3.2
+            title: "Scientific basis for impacts"
+            description: >
+              Potential impacts of the AI system on society and environment
+              are identified.
+            iso42001_crosswalk: ["A.5.5"]
+
+          - id: MAP-3.3
+            title: "AI system impacts on groups and communities"
+            description: >
+              Impacts on specific groups or communities are documented.
+            iso42001_crosswalk: ["A.5.4", "A.5.5"]
+
+          - id: MAP-3.4
+            title: "Risks of AI repurposing are evaluated"
+            description: >
+              Risks associated with repurposing of AI system are evaluated.
+            iso42001_crosswalk: ["A.9.4", "A.6.2.5"]
+
+          - id: MAP-3.5
+            title: "Privacy risks are evaluated"
+            description: >
+              Likelihood and impacts of privacy risks are evaluated.
+            iso42001_crosswalk: ["A.4.3", "A.5.4"]
+
+      - id: MAP-4
+        name: "Risks and benefits are mapped and identified"
+        subcategories:
+          - id: MAP-4.1
+            title: "AI actor risks are understood"
+            description: >
+              Approaches for measuring or monitoring AI risks are identified.
+            iso42001_crosswalk: ["A.6.2.6", "A.9.6"]
+
+          - id: MAP-4.2
+            title: "AI risk management practices are identified"
+            description: >
+              Risk management practices are applied.
+            iso42001_crosswalk: ["A.5.2", "A.6.1.3"]
+
+      - id: MAP-5
+        name: "Likelihood and impacts of AI risks are mapped"
+        subcategories:
+          - id: MAP-5.1
+            title: "Likelihood of impact is evaluated"
+            description: >
+              Likelihood of AI system risks is evaluated.
+            iso42001_crosswalk: ["A.5.2", "A.5.3"]
+
+          - id: MAP-5.2
+            title: "Practices for evaluating likelihood of impacts"
+            description: >
+              Practices for evaluating the likelihood and magnitude of impacts
+              are in use.
+            iso42001_crosswalk: ["A.5.3", "A.5.4"]
+
+  - id: MEASURE
+    name: "MEASURE"
+    description: >
+      Analyse and assess AI risks using quantitative, qualitative, or mixed
+      methods. Employ metrics to track, evaluate, and manage AI risks.
+    categories:
+      - id: MEASURE-1
+        name: "AI risk measurement approaches are identified"
+        subcategories:
+          - id: MEASURE-1.1
+            title: "Risk measurement approaches are identified"
+            description: >
+              Approaches and metrics for measurement of AI risks are identified
+              and documented.
+            iso42001_crosswalk: ["A.5.2", "A.6.2.4"]
+
+          - id: MEASURE-1.2
+            title: "Approaches are applied consistently"
+            description: >
+              Risk measurement approaches are applied consistently across
+              AI system lifecycle.
+            iso42001_crosswalk: ["A.6.2.4", "A.6.2.6"]
+
+          - id: MEASURE-1.3
+            title: "Internal experts are involved"
+            description: >
+              Internal experts who have identified themselves as skeptical
+              of AI are included in risk management processes.
+            iso42001_crosswalk: ["A.3.2", "A.3.3"]
+
+      - id: MEASURE-2
+        name: "AI risks are evaluated"
+        subcategories:
+          - id: MEASURE-2.1
+            title: "Risk metrics are collected"
+            description: >
+              Test sets and performance metrics reflect anticipated deployment
+              circumstances and relevant AI risks.
+            iso42001_crosswalk: ["A.6.2.4", "A.7.4"]
+
+          - id: MEASURE-2.2
+            title: "AI risks are characterized"
+            description: >
+              Evaluations involving human subjects are conducted in accordance
+              with responsible practices.
+            iso42001_crosswalk: ["A.5.4", "A.6.2.4"]
+
+          - id: MEASURE-2.3
+            title: "AI system performance is evaluated"
+            description: >
+              AI system performance metrics are evaluated against benchmarks.
+            iso42001_crosswalk: ["A.6.2.4", "A.6.2.6"]
+
+          - id: MEASURE-2.5
+            title: "Privacy risks are measured"
+            description: >
+              Privacy risks of AI systems are assessed.
+            iso42001_crosswalk: ["A.4.3", "A.5.4"]
+
+          - id: MEASURE-2.6
+            title: "Trustworthiness characteristics are evaluated"
+            description: >
+              Evaluation involves a careful assessment of system trustworthiness
+              characteristics (fairness, bias, explainability, etc.)
+            iso42001_crosswalk: ["A.6.2.4", "A.6.2.7"]
+
+          - id: MEASURE-2.7
+            title: "AI system security is evaluated"
+            description: >
+              AI system security and resilience properties are evaluated.
+            iso42001_crosswalk: ["A.6.2.4", "A.6.1.3"]
+
+          - id: MEASURE-2.8
+            title: "Risks of impact on groups are evaluated"
+            description: >
+              Risks to groups, communities, and society are evaluated.
+            iso42001_crosswalk: ["A.5.4", "A.5.5"]
+
+          - id: MEASURE-2.9
+            title: "Environmental impacts are measured"
+            description: >
+              Environmental impacts and sustainability of AI systems are assessed.
+            iso42001_crosswalk: ["A.5.5", "A.4.5"]
+
+          - id: MEASURE-2.10
+            title: "Privacy risks of training data are assessed"
+            description: >
+              Privacy risks associated with training and evaluation data are assessed.
+            iso42001_crosswalk: ["A.4.3", "A.7.3", "A.7.5"]
+
+          - id: MEASURE-2.11
+            title: "Fairness and bias assessments are conducted"
+            description: >
+              Fairness and bias assessments and mitigation are documented.
+            iso42001_crosswalk: ["A.5.4", "A.6.2.4"]
+
+          - id: MEASURE-2.12
+            title: "AI system explainability is evaluated"
+            description: >
+              Explainability of AI system decisions is assessed for relevant users.
+            iso42001_crosswalk: ["A.8.2", "A.6.2.7"]
+
+          - id: MEASURE-2.13
+            title: "Effectiveness of risk management is evaluated"
+            description: >
+              Effectiveness of the AI risk management plan is evaluated.
+            iso42001_crosswalk: ["A.5.3", "A.9.6"]
+
+      - id: MEASURE-3
+        name: "AI risks and impacts are monitored"
+        subcategories:
+          - id: MEASURE-3.1
+            title: "Risk monitoring is conducted"
+            description: >
+              Approaches for risk monitoring are identified and applied
+              throughout the AI system lifecycle.
+            iso42001_crosswalk: ["A.6.2.6", "A.9.6"]
+
+          - id: MEASURE-3.2
+            title: "Internal experts are identified and involved"
+            description: >
+              Risk tracking approaches are considered for AI risks with long
+              tail or emergent properties.
+            iso42001_crosswalk: ["A.6.2.6", "A.8.3"]
+
+          - id: MEASURE-3.3
+            title: "Feedback from impacted parties is collected"
+            description: >
+              Feedback processes for those impacted by AI systems are established.
+            iso42001_crosswalk: ["A.3.3", "A.8.4"]
+
+      - id: MEASURE-4
+        name: "Feedback is used to improve AI risk measurement"
+        subcategories:
+          - id: MEASURE-4.1
+            title: "Measurement approaches are improved"
+            description: >
+              Measurement approaches for identifying AI risks are improved
+              through feedback.
+            iso42001_crosswalk: ["A.9.6", "A.6.2.6"]
+
+          - id: MEASURE-4.2
+            title: "Measurement of AI risks is standardized"
+            description: >
+              Measurement approaches are shared publicly.
+            iso42001_crosswalk: ["A.8.2", "A.6.2.7"]
+
+  - id: MANAGE
+    name: "MANAGE"
+    description: >
+      Prioritize and address identified risks based on assessment. Allocate
+      resources to respond to, recover from, and improve systems and processes.
+    categories:
+      - id: MANAGE-1
+        name: "AI risks are prioritized and managed"
+        subcategories:
+          - id: MANAGE-1.1
+            title: "AI risk management plans are developed"
+            description: >
+              A risk management plan for AI systems is developed,
+              communicated, and applied.
+            iso42001_crosswalk: ["A.5.2", "A.5.3", "A.6.1.2"]
+
+          - id: MANAGE-1.2
+            title: "Risk-mitigating actions are taken"
+            description: >
+              Treatment approaches and response strategies are developed
+              and documented.
+            iso42001_crosswalk: ["A.9.2", "A.9.5"]
+
+          - id: MANAGE-1.3
+            title: "Responses to AI risks are prioritized"
+            description: >
+              Response activities are prioritized based on risk assessments.
+            iso42001_crosswalk: ["A.5.2", "A.9.5"]
+
+          - id: MANAGE-1.4
+            title: "Residual risks are evaluated"
+            description: >
+              Residual risks are evaluated and documented after mitigation.
+            iso42001_crosswalk: ["A.5.3", "A.9.5"]
+
+      - id: MANAGE-2
+        name: "Strategies to address AI risk are planned"
+        subcategories:
+          - id: MANAGE-2.1
+            title: "Resources required to manage AI risk are taken into account"
+            description: >
+              Resources required to manage AI risk are identified and allocated.
+            iso42001_crosswalk: ["A.4.2", "A.4.6"]
+
+          - id: MANAGE-2.2
+            title: "Mechanisms for reporting AI risks are established"
+            description: >
+              Mechanisms are in place for AI actors to report problems and
+              incidents.
+            iso42001_crosswalk: ["A.3.3", "A.8.3", "A.8.4"]
+
+          - id: MANAGE-2.4
+            title: "Mechanisms for managing AI risks are established"
+            description: >
+              Mechanisms are established to enable AI risk management
+              throughout the lifecycle.
+            iso42001_crosswalk: ["A.6.2.6", "A.9.6"]
+
+      - id: MANAGE-3
+        name: "Identified risks are managed, with a focus on known impacts"
+        subcategories:
+          - id: MANAGE-3.1
+            title: "Responses to identified risks are developed"
+            description: >
+              Response plans are developed and implemented for identified
+              AI risks.
+            iso42001_crosswalk: ["A.8.3", "A.8.4", "A.9.5"]
+
+          - id: MANAGE-3.2
+            title: "Identified risk mitigation actions are managed"
+            description: >
+              Risk mitigation activities are tracked and documented.
+            iso42001_crosswalk: ["A.6.2.6", "A.9.6"]
+
+      - id: MANAGE-4
+        name: "Risk treatments are used and managed"
+        subcategories:
+          - id: MANAGE-4.1
+            title: "Post-deployment monitoring is conducted"
+            description: >
+              Post-deployment AI system monitoring plans are implemented.
+            iso42001_crosswalk: ["A.6.2.6", "A.9.6", "A.6.2.8"]
+
+          - id: MANAGE-4.2
+            title: "Feedback loops for AI risk management are established"
+            description: >
+              Feedback is used to improve AI risk management plans.
+            iso42001_crosswalk: ["A.9.6", "A.8.3"]

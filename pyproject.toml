@@ -1,0 +1,73 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "aibom-guard"
+version = "0.2.0"
+description = "AI Bill of Materials generation + EU AI Act / ISO 42001 / NIST AI RMF compliance triage"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [{ name = "Anousone Phyakeo", email = "pkans007x@gmail.com" }]
+keywords = [
+    "ai-bom", "ml-bom", "eu-ai-act", "iso-42001", "iso-27001",
+    "nist-ai-rmf", "compliance", "grc", "cyclonedx", "spdx",
+    "ai-governance", "llm-security", "responsible-ai",
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Information Technology",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Security",
+    "Topic :: Software Development :: Quality Assurance",
+]
+dependencies = [
+    "PyYAML>=6.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+    "pytest-cov>=4.0",
+    "ruff>=0.4",
+]
+validate = [
+    "jsonschema>=4.21",
+]
+llm = [
+    "anthropic>=0.25",
+]
+all = [
+    "jsonschema>=4.21",
+    "anthropic>=0.25",
+]
+
+[project.scripts]
+aibom-guard = "aibom_guard.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/AnousonePhyakeo/aibom-guard"
+Issues = "https://github.com/AnousonePhyakeo/aibom-guard/issues"
+Documentation = "https://github.com/AnousonePhyakeo/aibom-guard#readme"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+aibom_guard = ["data/*.yaml"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "--tb=short -q"
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "UP"]
+ignore = ["E501"]

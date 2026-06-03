@@ -1,0 +1,79 @@
+name: CI
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: Test Python ${{ matrix.python-version }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.11", "3.12"]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install dependencies
+        run: pip install -e ".[dev]"
+
+      - name: Run tests with coverage
+        run: python -m pytest -q --tb=short --cov=aibom_guard --cov-report=term-missing
+
+      - name: Run sample pipeline
+        run: |
+          python -m aibom_guard.cli all examples/sample-ai-app \
+            --name "CI-Demo" \
+            --use-case "resume screening for hiring" \
+            --html \
+            --nist \
+            -o /tmp/reports
+          echo "--- Compliance report head ---"
+          head -30 /tmp/reports/compliance_report.md
+          echo "--- Validation result ---"
+          cat /tmp/reports/validation.txt
+
+      - name: Validate emitted BOM
+        run: |
+          python -m aibom_guard.cli validate /tmp/reports/aibom.cdx.json
+
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install ruff
+        run: pip install ruff
+      - name: Lint with ruff
+        run: ruff check src/
+
+  scan-self:
+    name: AIBOM-Guard scans itself
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install AIBOM-Guard
+        run: pip install -e .
+      - name: Scan this repo
+        run: |
+          python -m aibom_guard.cli scan . --name "aibom-guard-self" -o /tmp/self-scan
+          echo "Self-scan complete:"
+          cat /tmp/self-scan/scan.json | python -c "import json,sys; d=json.load(sys.stdin); print(f'{d[\"files_scanned\"]} files, {len(d[\"components\"])} components')"

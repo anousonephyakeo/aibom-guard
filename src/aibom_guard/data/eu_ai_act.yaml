@@ -1,0 +1,402 @@
+# EU AI Act risk-tier classification knowledge base — Regulation (EU) 2024/1689.
+#
+# Tiers:
+#   prohibited  - Article 5 banned practices
+#   high        - Annex III high-risk systems (Articles 6-15 obligations)
+#   limited     - Article 50 transparency obligations (chatbots, deepfakes, emotion/biometric disclosure)
+#   minimal     - No specific obligations beyond voluntary codes
+#
+# IMPORTANT: This is a *triage aid*, not a legal determination. Anything matching
+# high or prohibited MUST be confirmed by a human. When no category matches with
+# confidence, the classifier returns "unclear" so the system surfaces it for review.
+
+prohibited:
+  description: "Article 5 — AI practices banned in the EU (from 2 February 2025)."
+  categories:
+    - id: P1-social-scoring
+      name: "Social scoring by public authorities"
+      keywords:
+        - "social score"
+        - "social scoring"
+        - "citizen score"
+        - "trustworthiness score"
+        - "social credit"
+        - "social credit system"
+        - "government scoring"
+        - "public authority scoring"
+
+    - id: P2-manipulative
+      name: "Subliminal / manipulative techniques causing harm"
+      keywords:
+        - "subliminal"
+        - "dark pattern"
+        - "manipulat"
+        - "subconscious manipulation"
+        - "psychographic targeting harm"
+        - "bypass rational agency"
+        - "cognitive bias exploit"
+        - "subconscious influence"
+
+    - id: P3-exploit-vulnerable
+      name: "Exploiting vulnerabilities of specific groups"
+      keywords:
+        - "exploit vulnerab"
+        - "target children"
+        - "target elderly"
+        - "exploit disability"
+        - "exploit mental illness"
+        - "exploit socioeconomic"
+        - "target at-risk individuals"
+
+    - id: P4-realtime-biometric-public
+      name: "Real-time remote biometric identification in public spaces (law enforcement)"
+      keywords:
+        - "real-time biometric"
+        - "live facial recognition"
+        - "public surveillance facial"
+        - "real-time facial recognition"
+        - "live biometric identification"
+        - "cctv facial recognition"
+        - "crowd surveillance biometric"
+        - "real time face recognition public"
+        - "mass surveillance"
+
+    - id: P5-emotion-workplace-edu
+      name: "Emotion recognition in workplace / education institutions"
+      keywords:
+        - "emotion recognition workplace"
+        - "emotion detection classroom"
+        - "student emotion monitoring"
+        - "employee emotion analysis"
+        - "workplace emotion ai"
+        - "affect recognition employee"
+        - "facial expression workplace"
+        - "mood monitoring employees"
+        - "student engagement monitoring ai"
+
+    - id: P6-predictive-policing-profiling
+      name: "Predictive policing based solely on profiling"
+      keywords:
+        - "predictive policing"
+        - "crime prediction profiling"
+        - "preemptive arrest"
+        - "crime likelihood profiling"
+        - "pre-crime prediction"
+        - "policing profiling ai"
+
+    - id: P7-biometric-categorisation-sensitive
+      name: "Biometric categorisation inferring sensitive attributes"
+      keywords:
+        - "infer ethnicity"
+        - "infer race biometric"
+        - "infer sexual orientation"
+        - "infer political"
+        - "infer religion biometric"
+        - "infer gender identity"
+        - "classify sensitive attribute face"
+        - "biometric sensitive attribute"
+        - "facial attribute race"
+
+high:
+  description: "Annex III — high-risk AI systems. Trigger full Chapter III obligations."
+  categories:
+    - id: A3-1-biometrics
+      name: "Biometric identification, categorisation, emotion recognition"
+      keywords:
+        - "biometric"
+        - "facial recognition"
+        - "face recognition"
+        - "face-recognition"
+        - "fingerprint"
+        - "iris scan"
+        - "iris recognition"
+        - "voice identification"
+        - "speaker identification"
+        - "speaker verification"
+        - "speaker diarisation"
+        - "emotion recognition"
+        - "gait recognition"
+        - "vein recognition"
+        - "palm recognition"
+        - "retina scan"
+        - "deepface"
+        - "insightface"
+        - "face_recognition"
+        - "facenet"
+        - "arcface"
+        - "dlib face"
+        - "biometric identification"
+        - "biometric authentication"
+        - "liveness detection"
+        - "anti-spoofing biometric"
+        - "pyannote"
+        - "resemblyzer"
+
+    - id: A3-2-critical-infrastructure
+      name: "Safety component of critical infrastructure (traffic, utilities)"
+      keywords:
+        - "critical infrastructure"
+        - "power grid"
+        - "water supply"
+        - "traffic control"
+        - "railway signalling"
+        - "gas supply safety"
+        - "electricity grid"
+        - "energy management safety"
+        - "water treatment ai"
+        - "pipeline monitoring safety"
+        - "air traffic"
+        - "nuclear facility"
+        - "dam safety"
+        - "grid stability ai"
+        - "scada ai"
+        - "industrial control ai"
+
+    - id: A3-3-education
+      name: "Education & vocational training (admission, scoring, proctoring)"
+      keywords:
+        - "admissions"
+        - "exam scoring"
+        - "student assessment"
+        - "proctoring"
+        - "exam proctoring"
+        - "grading essays"
+        - "evaluate students"
+        - "educational placement"
+        - "university admission"
+        - "automated grading"
+        - "e-proctoring"
+        - "online exam monitoring"
+        - "essay evaluation"
+        - "academic performance prediction"
+        - "student ranking"
+        - "test score prediction"
+        - "vocational assessment"
+        - "competence assessment"
+
+    - id: A3-4-employment
+      name: "Employment, worker management, access to self-employment"
+      keywords:
+        - "resume screening"
+        - "cv screening"
+        - "candidate ranking"
+        - "applicant tracking"
+        - "hiring decision"
+        - "recruitment scoring"
+        - "employee evaluation"
+        - "promotion decision"
+        - "performance review ai"
+        - "worker monitoring"
+        - "job candidate"
+        - "hr ai"
+        - "talent acquisition ai"
+        - "workforce analytics"
+        - "dismissal decision ai"
+        - "task allocation ai"
+        - "work monitoring"
+        - "productivity monitoring"
+        - "employee surveillance"
+        - "shift allocation"
+        - "gig worker scoring"
+        - "freelancer rating ai"
+        - "time and attendance ai"
+
+    - id: A3-5-essential-services
+      name: "Access to essential private & public services (credit, benefits, emergency)"
+      keywords:
+        - "credit scoring"
+        - "creditworthiness"
+        - "loan approval"
+        - "loan eligibility"
+        - "insurance pricing"
+        - "insurance risk"
+        - "benefit eligibility"
+        - "welfare eligibility"
+        - "emergency dispatch"
+        - "triage patients"
+        - "social benefit"
+        - "credit decision"
+        - "underwriting ai"
+        - "mortgage ai"
+        - "bank account ai"
+        - "fraud scoring"
+        - "utility access"
+        - "housing allocation"
+        - "public assistance ai"
+        - "social services ai"
+        - "student loan ai"
+        - "subsidised service ai"
+        - "emergency services ai"
+        - "ambulance dispatch ai"
+
+    - id: A3-6-law-enforcement
+      name: "Law enforcement (risk assessment, evidence evaluation, profiling)"
+      keywords:
+        - "recidivism"
+        - "crime risk"
+        - "suspect profiling"
+        - "evidence reliability"
+        - "polygraph"
+        - "law enforcement risk"
+        - "offender risk"
+        - "criminal profiling"
+        - "parole assessment"
+        - "threat assessment ai"
+        - "police ai"
+        - "investigative ai"
+        - "evidence analysis ai"
+        - "criminal justice ai"
+        - "sentencing recommendation"
+
+    - id: A3-7-migration-border
+      name: "Migration, asylum, border control"
+      keywords:
+        - "visa application"
+        - "asylum"
+        - "border control"
+        - "migration risk"
+        - "immigration risk"
+        - "refugee assessment"
+        - "border crossing ai"
+        - "passport screening ai"
+        - "travel document verification"
+        - "biometric border"
+        - "immigration officer ai"
+
+    - id: A3-8-justice-democracy
+      name: "Administration of justice & democratic processes"
+      keywords:
+        - "judicial decision"
+        - "court ruling assist"
+        - "legal sentencing"
+        - "election influence"
+        - "voter targeting"
+        - "litigation ai"
+        - "legal prediction"
+        - "court case outcome"
+        - "democratic process ai"
+        - "political campaign ai"
+        - "election ai"
+
+    - id: A3-medical
+      name: "Medical device / health diagnosis (also regulated under MDR)"
+      keywords:
+        - "diagnos"
+        - "medical imaging"
+        - "patient outcome"
+        - "clinical decision"
+        - "disease prediction"
+        - "radiology ai"
+        - "pathology ai"
+        - "cancer detection"
+        - "medical ai"
+        - "health ai"
+        - "patient risk"
+        - "drug discovery"
+        - "clinical trial"
+        - "mental health ai"
+        - "psychiatric assessment ai"
+        - "ehr ai"
+        - "electronic health record"
+        - "hospital ai"
+        - "triage ai"
+        - "medical device"
+
+    - id: A3-safety-components
+      name: "Safety components in AI systems (Article 6.1)"
+      keywords:
+        - "safety critical"
+        - "fail-safe ai"
+        - "functional safety"
+        - "iso 26262"
+        - "iec 61508"
+        - "automotive safety ai"
+        - "autonomous driving safety"
+        - "safety monitoring ai"
+        - "hazard detection"
+
+limited:
+  description: "Article 50 — transparency obligations only."
+  categories:
+    - id: T1-chatbot
+      name: "AI system interacting with humans (chatbot, virtual assistant)"
+      keywords:
+        - "chatbot"
+        - "virtual assistant"
+        - "conversational agent"
+        - "customer support bot"
+        - "llm assistant"
+        - "chat interface"
+        - "qa bot"
+        - "ai assistant"
+        - "voice assistant"
+        - "dialogue system"
+        - "support agent"
+        - "ai agent"
+        - "intelligent assistant"
+        - "ai customer service"
+        - "automated response"
+        - "bot"
+
+    - id: T2-generative-content
+      name: "Generative AI producing synthetic content (must be labelled)"
+      keywords:
+        - "text generation"
+        - "image generation"
+        - "content generation"
+        - "synthetic media"
+        - "deepfake"
+        - "voice cloning"
+        - "text-to-image"
+        - "text-to-speech"
+        - "stable diffusion"
+        - "dall-e"
+        - "midjourney"
+        - "image synthesis"
+        - "video generation"
+        - "audio synthesis"
+        - "music generation"
+        - "speech synthesis"
+        - "generative ai"
+        - "code generation"
+        - "llm"
+        - "large language model"
+        - "gpt"
+        - "claude"
+        - "gemini"
+        - "synthetic content"
+        - "ai-generated"
+
+    - id: T3-recommender
+      name: "Recommendation / personalisation"
+      keywords:
+        - "recommendation"
+        - "recommender"
+        - "personalization"
+        - "personalisation"
+        - "content ranking"
+        - "feed ranking"
+        - "product recommendation"
+        - "collaborative filtering"
+        - "item-based filtering"
+        - "user-based filtering"
+        - "matrix factorization"
+        - "personalised feed"
+        - "news recommendation"
+
+    - id: T4-emotion-categorisation
+      name: "Emotion/biometric categorisation (disclosure required)"
+      keywords:
+        - "emotion detection"
+        - "sentiment analysis face"
+        - "facial expression analysis"
+        - "mood detection"
+        - "affect recognition"
+        - "biometric categorisation"
+        - "gender detection"
+        - "age estimation"
+
+# Default tiers when presence is detected but category doesn't match.
+# A generic LLM integration is at minimum transparency-obligated once it talks to users.
+default_when_ai_present_but_unclassified: limited
+default_when_no_ai: minimal

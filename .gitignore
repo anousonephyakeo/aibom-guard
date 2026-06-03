@@ -1,0 +1,15 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+.venv/
+venv/
+env/
+.pytest_cache/
+.mypy_cache/
+.DS_Store
+# generated compliance output (keep the dir, ignore contents except demo)
+reports/*
+!reports/.gitkeep

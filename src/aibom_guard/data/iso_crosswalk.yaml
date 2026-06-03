@@ -1,0 +1,314 @@
+# ISO/IEC 27001:2022 (Annex A) <-> ISO/IEC 42001:2023 (Annex A) crosswalk — FULL SET.
+#
+# Purpose: an organisation with ISO 27001 needs to know what ADDITIONAL
+# AI-specific governance ISO 42001 requires. All 38 ISO 42001 Annex A controls
+# across 9 objective areas (A.2–A.10) are encoded here.
+#
+# coverage: full | partial | none
+#   full    - an existing ISO 27001 control substantially satisfies this
+#   partial - ISO 27001 gives a foundation but AI-specific extension is required
+#   none    - no ISO 27001 equivalent; this is net-new work for AI governance
+
+iso42001_controls:
+  # ========== A.2 — Policies related to AI ==========
+  - id: A.2.2
+    title: "AI policy"
+    objective: "Policies related to AI"
+    iso27001_ref: "A.5.1 Policies for information security"
+    coverage: partial
+    gap: "An infosec policy exists, but a dedicated AI policy covering responsible-use principles, AI objectives, and acceptable AI uses is required."
+
+  - id: A.2.3
+    title: "Alignment with other organizational policies"
+    objective: "Policies related to AI"
+    iso27001_ref: "A.5.1"
+    coverage: partial
+    gap: "Ensure the AI policy is reconciled with existing privacy, security, HR, and ethics policies (especially where AI affects workers or customers)."
+
+  # ========== A.3 — Internal organization ==========
+  - id: A.3.2
+    title: "AI roles and responsibilities"
+    objective: "Internal organization"
+    iso27001_ref: "A.5.2 Information security roles and responsibilities"
+    coverage: partial
+    gap: "Roles exist for infosec; AI-specific accountability (AI system owner, model risk owner, human-oversight roles, AI ethics officer) must be assigned."
+
+  - id: A.3.3
+    title: "Reporting of concerns related to AI systems"
+    objective: "Internal organization"
+    iso27001_ref: "A.6.8 Information security event reporting"
+    coverage: partial
+    gap: "Extend event reporting to cover AI-specific concerns (harmful output, bias, unexpected behaviour, safety incidents) with a defined reporting channel."
+
+  - id: A.3.4
+    title: "Conflict of interest"
+    objective: "Internal organization"
+    iso27001_ref: null
+    coverage: none
+    gap: "Net-new: document and manage conflicts of interest for staff involved in AI development and deployment decisions (e.g. commercial pressure vs safety)."
+
+  # ========== A.4 — Resources for AI systems ==========
+  - id: A.4.2
+    title: "Resource documentation for AI systems"
+    objective: "Resources for AI systems"
+    iso27001_ref: null
+    coverage: none
+    gap: "Net-new: document data, tooling, compute, and human resources used by each AI system across its lifecycle (feeds the AI-BOM and Annex IV)."
+
+  - id: A.4.3
+    title: "Data resources"
+    objective: "Resources for AI systems"
+    iso27001_ref: "A.5.12 Classification of information / A.8.12 Data leakage prevention"
+    coverage: partial
+    gap: "Classification exists, but training/validation/test data provenance, quality, representativeness, and bias characteristics must be documented per dataset."
+
+  - id: A.4.4
+    title: "Tooling resources"
+    objective: "Resources for AI systems"
+    iso27001_ref: "A.8.* (technical controls, general)"
+    coverage: partial
+    gap: "Inventory AI/ML frameworks, libraries, and external model APIs (the AI-BOM) — not required by ISO 27001 asset inventory granularity."
+
+  - id: A.4.5
+    title: "System and computing resources"
+    objective: "Resources for AI systems"
+    iso27001_ref: "A.8.1 User endpoint devices / A.7.* physical"
+    coverage: partial
+    gap: "Document compute environments (GPU, cloud regions, TPUs) used for training/inference, including data-residency implications."
+
+  - id: A.4.6
+    title: "Human resources competence for AI"
+    objective: "Resources for AI systems"
+    iso27001_ref: "A.6.3 Information security awareness, education and training"
+    coverage: partial
+    gap: "Infosec training exists; AI-specific competence requirements (responsible AI, bias, model evaluation, AI ethics) must be defined and evidenced for AI roles."
+
+  # ========== A.5 — Assessing impacts of AI systems ==========
+  - id: A.5.2
+    title: "AI system impact assessment process"
+    objective: "Assessing impact of AI systems"
+    iso27001_ref: null
+    coverage: none
+    gap: "Net-new and central: a defined process to assess impacts of AI systems on individuals, groups, and society (distinct from a security risk assessment). Overlaps with EU AI Act FRIA."
+
+  - id: A.5.3
+    title: "Documentation of AI system impact assessments"
+    objective: "Assessing impact of AI systems"
+    iso27001_ref: null
+    coverage: none
+    gap: "Net-new: retain documented impact assessments per AI system. Overlaps with EU AI Act Annex IV and GDPR DPIA requirements."
+
+  - id: A.5.4
+    title: "Assessing impacts on individuals and groups"
+    objective: "Assessing impact of AI systems"
+    iso27001_ref: "A.5.34 Privacy and PII (partial)"
+    coverage: partial
+    gap: "Privacy control covers PII; must extend to fairness, non-discrimination, societal/group-level harms, and fundamental rights impacts."
+
+  - id: A.5.5
+    title: "Assessing impacts on society and the environment"
+    objective: "Assessing impact of AI systems"
+    iso27001_ref: null
+    coverage: none
+    gap: "Net-new: assess broader societal impacts of AI system deployment (environmental cost of compute, societal bias amplification, economic disruption)."
+
+  # ========== A.6 — AI system life cycle ==========
+  - id: A.6.1.2
+    title: "Objectives for responsible AI development"
+    objective: "AI system life cycle"
+    iso27001_ref: null
+    coverage: none
+    gap: "Net-new: define and document responsible-development objectives (safety, fairness, transparency, robustness, privacy by design)."
+
+  - id: A.6.1.3
+    title: "Processes for responsible AI design and development"
+    objective: "AI system life cycle"
+    iso27001_ref: "A.8.25 Secure development life cycle"
+    coverage: partial
+    gap: "Secure SDLC exists; extend to AI-specific design (data selection, model selection, bias mitigation, evaluation criteria, explainability requirements)."
+
+  - id: A.6.2.2
+    title: "AI system requirements and specification"
+    objective: "AI system life cycle"
+    iso27001_ref: "A.8.26 Application security requirements"
+    coverage: partial
+    gap: "Add AI-specific requirements: intended purpose, performance thresholds, acceptable error rates, robustness targets, and prohibited uses."
+
+  - id: A.6.2.3
+    title: "Acquiring data for AI systems"
+    objective: "AI system life cycle"
+    iso27001_ref: "A.5.19 Supplier relationships (partial)"
+    coverage: partial
+    gap: "Document lawful basis, provenance, and licensing of acquired/third-party training datasets. Include bias and representativeness assessment."
+
+  - id: A.6.2.4
+    title: "AI system verification and validation"
+    objective: "AI system life cycle"
+    iso27001_ref: "A.8.29 Security testing in development"
+    coverage: partial
+    gap: "Security testing exists; add model evaluation, bias/fairness testing, adversarial robustness testing, and performance validation against acceptance criteria."
+
+  - id: A.6.2.5
+    title: "AI system deployment"
+    objective: "AI system life cycle"
+    iso27001_ref: "A.8.31 Separation of development, testing and production environments"
+    coverage: partial
+    gap: "Add deployment readiness gating tied to impact assessment outcomes and human-oversight readiness. Document deployment scope and constraints."
+
+  - id: A.6.2.6
+    title: "AI system operation and monitoring"
+    objective: "AI system life cycle"
+    iso27001_ref: "A.8.16 Monitoring activities"
+    coverage: partial
+    gap: "Monitoring exists for security; add drift detection, performance/quality monitoring, fairness monitoring in production, and incident triggers specific to AI."
+
+  - id: A.6.2.7
+    title: "AI system technical documentation"
+    objective: "AI system life cycle"
+    iso27001_ref: "A.5.37 Documented operating procedures (partial)"
+    coverage: partial
+    gap: "Net-new depth: maintain technical documentation per AI system (model cards, datasheets, training methodology). Aligns with EU AI Act Annex IV."
+
+  - id: A.6.2.8
+    title: "AI system recording of event logs"
+    objective: "AI system life cycle"
+    iso27001_ref: "A.8.15 Logging"
+    coverage: partial
+    gap: "Logging exists; ensure AI-specific event logging (inputs/outputs, decisions, overrides) and retention (EU AI Act Article 12: ≥ 6 months for high-risk systems)."
+
+  - id: A.6.2.9
+    title: "Decommissioning of AI systems"
+    objective: "AI system life cycle"
+    iso27001_ref: "A.8.10 Information deletion"
+    coverage: partial
+    gap: "Data deletion procedures exist; add AI-specific decommissioning (model artifact disposal, training data retention/deletion, audit-trail preservation)."
+
+  # ========== A.7 — Data for AI systems ==========
+  - id: A.7.2
+    title: "Data for development and enhancement of AI"
+    objective: "Data for AI systems"
+    iso27001_ref: "A.5.12 / A.8.12"
+    coverage: partial
+    gap: "Extend to data-quality management, representativeness assessment, labelling quality, and documented data preparation/cleaning processes."
+
+  - id: A.7.3
+    title: "Data acquisition"
+    objective: "Data for AI systems"
+    iso27001_ref: "A.5.19"
+    coverage: partial
+    gap: "Document lawful basis, consent, provenance, and licensing for all data used to train, fine-tune, or evaluate AI models."
+
+  - id: A.7.4
+    title: "Data quality"
+    objective: "Data for AI systems"
+    iso27001_ref: "A.5.12 / A.8.12"
+    coverage: partial
+    gap: "Define data quality criteria for AI training (accuracy, completeness, representativeness, absence of poisoning) and document validation results."
+
+  - id: A.7.5
+    title: "Provenance of data"
+    objective: "Data for AI systems"
+    iso27001_ref: null
+    coverage: none
+    gap: "Net-new: maintain documented data provenance/lineage for training data (core to AI-BOM and Annex IV). Track origin, transformations, and legal basis."
+
+  - id: A.7.6
+    title: "Data preparation"
+    objective: "Data for AI systems"
+    iso27001_ref: null
+    coverage: none
+    gap: "Net-new: document data preparation, cleaning, labelling, and transformation steps affecting model behaviour and potential bias."
+
+  - id: A.7.7
+    title: "Data governance for AI"
+    objective: "Data for AI systems"
+    iso27001_ref: "A.5.12"
+    coverage: partial
+    gap: "Data classification exists; establish AI-specific data governance (training data lifecycle, dataset versioning, access controls for model training environments)."
+
+  # ========== A.8 — Information for interested parties ==========
+  - id: A.8.2
+    title: "System documentation and information for users"
+    objective: "Information for interested parties"
+    iso27001_ref: null
+    coverage: none
+    gap: "Net-new: provide instructions-for-use and transparency information to deployers and affected users (EU AI Act Articles 13 & 50)."
+
+  - id: A.8.3
+    title: "External reporting of AI incidents to authorities"
+    objective: "Information for interested parties"
+    iso27001_ref: "A.5.5 Contact with authorities (partial)"
+    coverage: partial
+    gap: "Define serious-incident reporting to competent authorities (EU AI Act Article 73, national market surveillance authorities)."
+
+  - id: A.8.4
+    title: "Communication of AI incidents to affected parties"
+    objective: "Information for interested parties"
+    iso27001_ref: "A.5.26 Response to incidents"
+    coverage: partial
+    gap: "Incident response exists; add AI-specific incident definitions, severity classification, and stakeholder/user communication paths."
+
+  - id: A.8.5
+    title: "Information on intended use to deployers"
+    objective: "Information for interested parties"
+    iso27001_ref: null
+    coverage: none
+    gap: "Net-new: provide deployers with structured instructions-for-use documentation defining intended purpose, user groups, and prohibited use cases."
+
+  # ========== A.9 — Use of AI systems ==========
+  - id: A.9.2
+    title: "Processes for responsible use of AI systems"
+    objective: "Use of AI systems"
+    iso27001_ref: "A.5.10 Acceptable use of information and assets"
+    coverage: partial
+    gap: "Acceptable-use policy exists; add AI-specific responsible-use processes (when human review is mandatory, prohibited uses, oversight escalation paths)."
+
+  - id: A.9.3
+    title: "Objectives for responsible use of AI"
+    objective: "Use of AI systems"
+    iso27001_ref: null
+    coverage: none
+    gap: "Net-new: define organisational objectives for responsible use of AI systems it deploys or operates (safety, fairness, transparency, human oversight)."
+
+  - id: A.9.4
+    title: "Intended use of AI systems"
+    objective: "Use of AI systems"
+    iso27001_ref: null
+    coverage: none
+    gap: "Net-new: document and enforce intended purpose; detect and handle out-of-scope, off-label, or misuse scenarios."
+
+  - id: A.9.5
+    title: "Human oversight of AI systems"
+    objective: "Use of AI systems"
+    iso27001_ref: null
+    coverage: none
+    gap: "Net-new: define human oversight mechanisms, intervention capabilities, and override procedures for AI system decisions (EU AI Act Article 14)."
+
+  - id: A.9.6
+    title: "Monitoring of AI system use"
+    objective: "Use of AI systems"
+    iso27001_ref: "A.8.16 Monitoring activities"
+    coverage: partial
+    gap: "Monitoring exists; add AI-specific operational monitoring (output quality, unexpected behaviour, performance drift, misuse detection)."
+
+  # ========== A.10 — Third-party and supply chain ==========
+  - id: A.10.2
+    title: "Allocation of AI responsibilities across third parties"
+    objective: "Third-party relationships"
+    iso27001_ref: "A.5.19 / A.5.20 / A.5.21 Supplier and ICT supply chain"
+    coverage: partial
+    gap: "Supplier controls exist; clarify provider/deployer responsibility split for AI (especially GPAI providers) and pass-through obligations under EU AI Act."
+
+  - id: A.10.3
+    title: "Suppliers of AI components"
+    objective: "Third-party relationships"
+    iso27001_ref: "A.5.21 Managing ICT supply chain security"
+    coverage: partial
+    gap: "Extend supplier assessment to AI-specific due diligence (model documentation, training-data summaries, AI-BOM exchange, compliance posture)."
+
+  - id: A.10.4
+    title: "Use of third-party AI systems and components"
+    objective: "Third-party relationships"
+    iso27001_ref: "A.5.19"
+    coverage: partial
+    gap: "When using third-party AI models/APIs: document acceptable-use terms, data-processing agreements, and how the deployer's obligations are met despite using a third-party provider."

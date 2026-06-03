@@ -1,0 +1,314 @@
+# AI/ML library signatures — scanner detection database.
+# categories: framework | model-provider | orchestration | inference |
+#             vector-db | data | mlops | nlp | cv | audio | rl | multimodal | security
+# Extend freely; matching is case-insensitive on the normalised package name.
+
+python:
+  # --- Core DL frameworks ---
+  torch:             {category: framework,      vendor: "Meta / PyTorch",   risk_note: "Deep learning framework"}
+  tensorflow:        {category: framework,      vendor: "Google",           risk_note: "Deep learning framework"}
+  tf-keras:          {category: framework,      vendor: "Google",           risk_note: "Keras bundled with TF2"}
+  jax:               {category: framework,      vendor: "Google",           risk_note: "Numerical / ML framework"}
+  jaxlib:            {category: framework,      vendor: "Google",           risk_note: "JAX low-level library"}
+  flax:              {category: framework,      vendor: "Google",           risk_note: "Neural network library for JAX"}
+  equinox:           {category: framework,      vendor: "Deepmind",         risk_note: "Neural network library for JAX"}
+  keras:             {category: framework,      vendor: "Google",           risk_note: "High-level DL API"}
+  keras-core:        {category: framework,      vendor: "Google",           risk_note: "Multi-backend Keras"}
+  paddle:            {category: framework,      vendor: "Baidu",            risk_note: "PaddlePaddle DL framework"}
+  paddlepaddle:      {category: framework,      vendor: "Baidu",            risk_note: "PaddlePaddle DL framework"}
+  mxnet:             {category: framework,      vendor: "Apache",           risk_note: "Deep learning framework"}
+  mindspore:         {category: framework,      vendor: "Huawei",           risk_note: "DL framework (Huawei)"}
+  oneflow:           {category: framework,      vendor: "OneFlow",          risk_note: "DL framework"}
+  fastai:            {category: framework,      vendor: "fast.ai",          risk_note: "High-level PyTorch API"}
+  pytorch-lightning: {category: framework,      vendor: "Lightning AI",     risk_note: "PyTorch training framework"}
+  lightning:         {category: framework,      vendor: "Lightning AI",     risk_note: "PyTorch Lightning alias"}
+
+  # --- Classical ML / gradient boosting ---
+  scikit-learn:      {category: framework,      vendor: "scikit-learn",     risk_note: "Classical ML"}
+  sklearn:           {category: framework,      vendor: "scikit-learn",     risk_note: "Classical ML (alias)"}
+  xgboost:           {category: framework,      vendor: "DMLC",             risk_note: "Gradient boosting"}
+  lightgbm:          {category: framework,      vendor: "Microsoft",        risk_note: "Gradient boosting"}
+  catboost:          {category: framework,      vendor: "Yandex",           risk_note: "Gradient boosting"}
+  statsmodels:       {category: framework,      vendor: "statsmodels",      risk_note: "Statistical models"}
+  prophet:           {category: framework,      vendor: "Meta",             risk_note: "Time-series forecasting"}
+  sktime:            {category: framework,      vendor: "sktime",           risk_note: "Time-series ML"}
+  tsai:              {category: framework,      vendor: "timeseriesAI",     risk_note: "Time-series DL"}
+  h2o:               {category: framework,      vendor: "H2O.ai",           risk_note: "AutoML framework"}
+  autosklearn:       {category: framework,      vendor: "AutoML",           risk_note: "AutoML (sklearn-based)"}
+  pycaret:           {category: framework,      vendor: "PyCaret",          risk_note: "Low-code ML framework"}
+  river:             {category: framework,      vendor: "river-ml",         risk_note: "Online / streaming ML"}
+  imbalanced-learn:  {category: framework,      vendor: "imbalanced-learn", risk_note: "Imbalanced class handling"}
+  optuna:            {category: mlops,          vendor: "Optuna",           risk_note: "Hyperparameter optimisation"}
+  hyperopt:          {category: mlops,          vendor: "hyperopt",         risk_note: "Hyperparameter optimisation"}
+
+  # --- Inference runtimes ---
+  onnxruntime:       {category: inference,      vendor: "Microsoft",        risk_note: "Model inference runtime"}
+  onnx:              {category: inference,      vendor: "LF AI",            risk_note: "Model interchange format"}
+  onnxruntime-gpu:   {category: inference,      vendor: "Microsoft",        risk_note: "GPU inference runtime"}
+  tensorrt:          {category: inference,      vendor: "NVIDIA",           risk_note: "GPU inference optimizer"}
+  openvino:          {category: inference,      vendor: "Intel",            risk_note: "Intel inference runtime"}
+  torchscript:       {category: inference,      vendor: "Meta",             risk_note: "PyTorch serialization format"}
+  tflite:            {category: inference,      vendor: "Google",           risk_note: "TF Lite inference"}
+  coremltools:       {category: inference,      vendor: "Apple",            risk_note: "Apple CoreML export"}
+  ctransformers:     {category: inference,      vendor: "Community",        risk_note: "GGML quantized inference"}
+  llama-cpp-python:  {category: inference,      vendor: "Community",        risk_note: "llama.cpp Python bindings"}
+  vllm:              {category: inference,      vendor: "vLLM",             risk_note: "High-throughput LLM serving"}
+  exllamav2:         {category: inference,      vendor: "Community",        risk_note: "ExLlama quantized inference"}
+  outlines:          {category: inference,      vendor: "normal",           risk_note: "Structured LLM output"}
+  guidance:          {category: inference,      vendor: "Microsoft",        risk_note: "LLM program control"}
+  lmql:              {category: inference,      vendor: "ETH Zürich",       risk_note: "LLM query language"}
+
+  # --- Foundation-model providers (external) ---
+  openai:            {category: model-provider, vendor: "OpenAI",           risk_note: "External LLM API - data leaves environment"}
+  anthropic:         {category: model-provider, vendor: "Anthropic",        risk_note: "External LLM API - data leaves environment"}
+  cohere:            {category: model-provider, vendor: "Cohere",           risk_note: "External LLM API"}
+  google-generativeai: {category: model-provider, vendor: "Google",         risk_note: "External LLM API (Gemini)"}
+  mistralai:         {category: model-provider, vendor: "Mistral AI",       risk_note: "External LLM API"}
+  groq:              {category: model-provider, vendor: "Groq",             risk_note: "External LLM API"}
+  replicate:         {category: model-provider, vendor: "Replicate",        risk_note: "Hosted model API"}
+  boto3:             {category: model-provider, vendor: "AWS",              risk_note: "May include Bedrock LLM (verify usage)"}
+  together:          {category: model-provider, vendor: "Together AI",      risk_note: "External LLM API"}
+  fireworks-ai:      {category: model-provider, vendor: "Fireworks AI",     risk_note: "External LLM API"}
+  ai21:              {category: model-provider, vendor: "AI21 Labs",        risk_note: "External LLM API (Jurassic)"}
+  nvidia-nemo:       {category: model-provider, vendor: "NVIDIA",           risk_note: "NeMo model framework"}
+  perplexity-ai:     {category: model-provider, vendor: "Perplexity",       risk_note: "External search+LLM API"}
+  litellm:           {category: model-provider, vendor: "BerriAI",          risk_note: "LLM API proxy - check backends"}
+  openrouter:        {category: model-provider, vendor: "OpenRouter",       risk_note: "Multi-provider LLM gateway"}
+  ollama:            {category: model-provider, vendor: "Ollama",           risk_note: "Local LLM serving"}
+  google-cloud-aiplatform: {category: model-provider, vendor: "Google", risk_note: "Vertex AI / Gemini platform"}
+  azure-ai-inference: {category: model-provider, vendor: "Microsoft",      risk_note: "Azure AI Inference API"}
+  azure-cognitiveservices-language: {category: model-provider, vendor: "Microsoft", risk_note: "Azure Cognitive Services"}
+  amazon-bedrock-runtime: {category: model-provider, vendor: "AWS",        risk_note: "Amazon Bedrock LLM API"}
+  boto3-stubs:       {category: model-provider, vendor: "AWS",              risk_note: "AWS type stubs (verify Bedrock usage)"}
+  sagemaker:         {category: mlops,          vendor: "AWS",              risk_note: "SageMaker ML platform"}
+
+  # --- Orchestration / agent frameworks ---
+  langchain:         {category: orchestration,  vendor: "LangChain",        risk_note: "LLM orchestration - inventory tools/chains"}
+  langchain-core:    {category: orchestration,  vendor: "LangChain",        risk_note: "LangChain core library"}
+  langchain-community: {category: orchestration, vendor: "LangChain",       risk_note: "LangChain community integrations"}
+  langchain-openai:  {category: orchestration,  vendor: "LangChain",        risk_note: "LangChain OpenAI integration"}
+  langchain-anthropic: {category: orchestration, vendor: "LangChain",       risk_note: "LangChain Anthropic integration"}
+  langgraph:         {category: orchestration,  vendor: "LangChain",        risk_note: "Agent graph orchestration"}
+  llama-index:       {category: orchestration,  vendor: "LlamaIndex",       risk_note: "RAG orchestration"}
+  llama_index:       {category: orchestration,  vendor: "LlamaIndex",       risk_note: "RAG orchestration (alias)"}
+  llama-index-core:  {category: orchestration,  vendor: "LlamaIndex",       risk_note: "LlamaIndex core"}
+  haystack-ai:       {category: orchestration,  vendor: "deepset",          risk_note: "RAG / search orchestration"}
+  haystack:          {category: orchestration,  vendor: "deepset",          risk_note: "RAG / search orchestration"}
+  crewai:            {category: orchestration,  vendor: "CrewAI",           risk_note: "Multi-agent orchestration"}
+  autogen:           {category: orchestration,  vendor: "Microsoft",        risk_note: "Multi-agent orchestration"}
+  pyautogen:         {category: orchestration,  vendor: "Microsoft",        risk_note: "AutoGen Python package"}
+  dspy:              {category: orchestration,  vendor: "Stanford",         risk_note: "LLM programming framework"}
+  mcp:               {category: orchestration,  vendor: "Anthropic",        risk_note: "Model Context Protocol - inventory connected tools"}
+  controlflow:       {category: orchestration,  vendor: "PrefectHQ",        risk_note: "AI task orchestration"}
+  prefect:           {category: mlops,          vendor: "PrefectHQ",        risk_note: "Workflow orchestration with AI integration"}
+  pydantic-ai:       {category: orchestration,  vendor: "Pydantic",         risk_note: "Type-safe AI agent framework"}
+  smolagents:        {category: orchestration,  vendor: "Hugging Face",     risk_note: "Lightweight agent framework"}
+  agentops:          {category: mlops,          vendor: "AgentOps",         risk_note: "Agent observability"}
+  agno:              {category: orchestration,  vendor: "Agno",             risk_note: "Multi-modal agent framework"}
+  openai-agents:     {category: orchestration,  vendor: "OpenAI",           risk_note: "OpenAI Agents SDK"}
+
+  # --- Model hubs / NLP ---
+  transformers:      {category: nlp,            vendor: "Hugging Face",     risk_note: "Pretrained model loading - record model IDs"}
+  sentence-transformers: {category: nlp,        vendor: "Hugging Face",     risk_note: "Embedding models"}
+  huggingface-hub:   {category: nlp,            vendor: "Hugging Face",     risk_note: "Model/dataset download"}
+  datasets:          {category: data,           vendor: "Hugging Face",     risk_note: "Dataset loading - document data provenance"}
+  evaluate:          {category: mlops,          vendor: "Hugging Face",     risk_note: "Model evaluation"}
+  accelerate:        {category: framework,      vendor: "Hugging Face",     risk_note: "Distributed training"}
+  peft:              {category: framework,      vendor: "Hugging Face",     risk_note: "Parameter-efficient fine-tuning (LoRA etc.)"}
+  trl:               {category: framework,      vendor: "Hugging Face",     risk_note: "Transformer RL / RLHF fine-tuning"}
+  diffusers:         {category: multimodal,     vendor: "Hugging Face",     risk_note: "Diffusion image generation models"}
+  timm:              {category: cv,             vendor: "Hugging Face",     risk_note: "Image model zoo"}
+  tokenizers:        {category: nlp,            vendor: "Hugging Face",     risk_note: "Fast tokenizers"}
+  spacy:             {category: nlp,            vendor: "Explosion",        risk_note: "NLP pipelines"}
+  spacy-transformers: {category: nlp,           vendor: "Explosion",        risk_note: "spaCy + transformers"}
+  nltk:              {category: nlp,            vendor: "NLTK",             risk_note: "NLP toolkit"}
+  gensim:            {category: nlp,            vendor: "RARE Technologies",risk_note: "Word embeddings / topic models"}
+  flair:             {category: nlp,            vendor: "Zalando",          risk_note: "NLP library"}
+  stanza:            {category: nlp,            vendor: "Stanford NLP",     risk_note: "Multilingual NLP"}
+  allennlp:          {category: nlp,            vendor: "AllenAI",          risk_note: "NLP research framework"}
+  simpletransformers: {category: nlp,           vendor: "ThilinaRajapakse", risk_note: "Transformer fine-tuning wrappers"}
+  setfit:            {category: nlp,            vendor: "Hugging Face",     risk_note: "Few-shot text classification"}
+  openai-clip:       {category: multimodal,     vendor: "OpenAI",           risk_note: "CLIP vision-language model"}
+  clip:              {category: multimodal,     vendor: "OpenAI",           risk_note: "CLIP vision-language model"}
+  open-clip-torch:   {category: multimodal,     vendor: "OpenCLIP",         risk_note: "Open CLIP implementation"}
+  lavis:             {category: multimodal,     vendor: "Salesforce",       risk_note: "Vision-language models"}
+
+  # --- Vision / computer vision ---
+  opencv-python:     {category: cv,             vendor: "OpenCV",           risk_note: "Computer vision - check for biometric use"}
+  opencv-python-headless: {category: cv,        vendor: "OpenCV",           risk_note: "Headless OpenCV"}
+  ultralytics:       {category: cv,             vendor: "Ultralytics",      risk_note: "YOLO object detection - check for surveillance use"}
+  face-recognition:  {category: cv,             vendor: "ageitgey",         risk_note: "BIOMETRIC - likely high-risk under EU AI Act"}
+  deepface:          {category: cv,             vendor: "serengil",         risk_note: "BIOMETRIC face analysis - likely high-risk"}
+  insightface:       {category: cv,             vendor: "InsightFace",      risk_note: "BIOMETRIC face analysis - likely high-risk"}
+  dlib:              {category: cv,             vendor: "Davis King",       risk_note: "BIOMETRIC - facial landmark detection"}
+  mediapipe:         {category: cv,             vendor: "Google",           risk_note: "Pose/hand/face tracking - check biometric use"}
+  detectron2:        {category: cv,             vendor: "Meta",             risk_note: "Object detection / segmentation"}
+  mmdet:             {category: cv,             vendor: "OpenMMLab",        risk_note: "Object detection framework"}
+  mmcv:              {category: cv,             vendor: "OpenMMLab",        risk_note: "CV foundation library"}
+  albumentations:    {category: cv,             vendor: "Albumentations",   risk_note: "Image augmentation"}
+  kornia:            {category: cv,             vendor: "kornia",           risk_note: "Differentiable CV library"}
+  supervision:       {category: cv,             vendor: "Roboflow",         risk_note: "CV annotation/deployment"}
+  roboflow:          {category: cv,             vendor: "Roboflow",         risk_note: "CV dataset + model platform"}
+  easyocr:           {category: cv,             vendor: "JaidedAI",         risk_note: "OCR - check for document/ID processing"}
+  pytesseract:       {category: cv,             vendor: "Tesseract",        risk_note: "OCR - check for sensitive document processing"}
+  paddleocr:         {category: cv,             vendor: "Baidu",            risk_note: "OCR framework"}
+  keras-cv:          {category: cv,             vendor: "Google",           risk_note: "Keras computer vision library"}
+  segment-anything:  {category: cv,             vendor: "Meta",             risk_note: "SAM image segmentation"}
+  groundingdino:     {category: cv,             vendor: "IDEA Research",    risk_note: "Open-vocabulary object detection"}
+
+  # --- Audio / speech ---
+  whisper:           {category: audio,          vendor: "OpenAI",           risk_note: "Speech-to-text"}
+  openai-whisper:    {category: audio,          vendor: "OpenAI",           risk_note: "Speech-to-text"}
+  faster-whisper:    {category: audio,          vendor: "SYSTRAN",          risk_note: "Optimised Whisper inference"}
+  speechbrain:       {category: audio,          vendor: "SpeechBrain",      risk_note: "Speech processing - verify biometric use"}
+  pyannote-audio:    {category: audio,          vendor: "pyannote",         risk_note: "BIOMETRIC speaker diarisation/identification"}
+  resemblyzer:       {category: audio,          vendor: "resemble.ai",      risk_note: "BIOMETRIC voice embedding"}
+  nemo:              {category: audio,          vendor: "NVIDIA",           risk_note: "NVIDIA NeMo ASR/TTS"}
+  bark:              {category: audio,          vendor: "Suno AI",          risk_note: "Text-to-speech / voice cloning"}
+  coqui-tts:         {category: audio,          vendor: "Coqui AI",         risk_note: "TTS and voice cloning"}
+  torchaudio:        {category: audio,          vendor: "PyTorch",          risk_note: "Audio processing library"}
+  librosa:           {category: audio,          vendor: "librosa",          risk_note: "Audio analysis library"}
+  soundfile:         {category: audio,          vendor: "soundfile",        risk_note: "Audio I/O"}
+  pyaudio:           {category: audio,          vendor: "pyaudio",          risk_note: "Real-time audio - check surveillance use"}
+  audiocraft:        {category: audio,          vendor: "Meta",             risk_note: "Music/audio generation"}
+  parler-tts:        {category: audio,          vendor: "Hugging Face",     risk_note: "Text-to-speech synthesis"}
+
+  # --- Vector DBs / RAG storage ---
+  chromadb:          {category: vector-db,      vendor: "Chroma",           risk_note: "Vector store - may hold personal data"}
+  pinecone-client:   {category: vector-db,      vendor: "Pinecone",         risk_note: "External vector store - data residency"}
+  pinecone:          {category: vector-db,      vendor: "Pinecone",         risk_note: "External vector store - data residency"}
+  weaviate-client:   {category: vector-db,      vendor: "Weaviate",         risk_note: "Vector store"}
+  qdrant-client:     {category: vector-db,      vendor: "Qdrant",           risk_note: "Vector store"}
+  faiss-cpu:         {category: vector-db,      vendor: "Meta",             risk_note: "Local vector index"}
+  faiss-gpu:         {category: vector-db,      vendor: "Meta",             risk_note: "GPU vector index"}
+  milvus:            {category: vector-db,      vendor: "Zilliz",           risk_note: "Vector database"}
+  pymilvus:          {category: vector-db,      vendor: "Zilliz",           risk_note: "Milvus Python client"}
+  lancedb:           {category: vector-db,      vendor: "LanceDB",          risk_note: "Embedded vector database"}
+  pgvector:          {category: vector-db,      vendor: "pgvector",         risk_note: "Postgres vector extension"}
+  psycopg2:          {category: data,           vendor: "psycopg",          risk_note: "Postgres DB (verify if used with pgvector/AI)"}
+  elasticsearch:     {category: vector-db,      vendor: "Elastic",          risk_note: "Search + vector (verify AI use)"}
+  opensearch-py:     {category: vector-db,      vendor: "OpenSearch",       risk_note: "OpenSearch with k-NN vectors"}
+  redis:             {category: vector-db,      vendor: "Redis",            risk_note: "Redis (may use RedisVL for vectors)"}
+  usearch:           {category: vector-db,      vendor: "Unum Cloud",       risk_note: "Local vector search"}
+  annoy:             {category: vector-db,      vendor: "Spotify",          risk_note: "Approximate nearest neighbours"}
+  txtai:             {category: vector-db,      vendor: "NeuML",            risk_note: "Embeddings database / RAG"}
+
+  # --- MLOps / observability ---
+  mlflow:            {category: mlops,          vendor: "Databricks",       risk_note: "Model registry / tracking"}
+  wandb:             {category: mlops,          vendor: "Weights & Biases", risk_note: "Experiment tracking - data egress"}
+  bentoml:           {category: mlops,          vendor: "BentoML",          risk_note: "Model serving"}
+  ray:               {category: mlops,          vendor: "Anyscale",         risk_note: "Distributed computing framework"}
+  clearml:           {category: mlops,          vendor: "ClearML",          risk_note: "MLOps platform"}
+  dvc:               {category: mlops,          vendor: "Iterative",        risk_note: "Data/model version control"}
+  zenml:             {category: mlops,          vendor: "ZenML",            risk_note: "MLOps pipeline framework"}
+  kedro:             {category: mlops,          vendor: "QuantumBlack",     risk_note: "Data pipeline framework"}
+  neptune:           {category: mlops,          vendor: "Neptune.ai",       risk_note: "Experiment tracking - data egress"}
+  comet-ml:          {category: mlops,          vendor: "Comet",            risk_note: "Experiment tracking - data egress"}
+  aimstack:          {category: mlops,          vendor: "Aimstack",         risk_note: "Experiment tracking"}
+  great-expectations: {category: data,          vendor: "GX",               risk_note: "Data quality validation"}
+  pandera:           {category: data,           vendor: "pandera",          risk_note: "DataFrame validation"}
+  deepchecks:        {category: mlops,          vendor: "deepchecks",       risk_note: "ML testing / drift detection"}
+  evidently:         {category: mlops,          vendor: "Evidently AI",     risk_note: "ML model monitoring"}
+  nannyml:           {category: mlops,          vendor: "NannyML",          risk_note: "ML model monitoring"}
+  whylogs:           {category: mlops,          vendor: "whylabs",          risk_note: "Data/model logging"}
+
+  # --- Reinforcement Learning ---
+  stable-baselines3: {category: rl,             vendor: "stable-baselines3",risk_note: "Reinforcement learning"}
+  gymnasium:         {category: rl,             vendor: "Farama",           risk_note: "RL environment"}
+  gym:               {category: rl,             vendor: "OpenAI",           risk_note: "RL environment (legacy gym)"}
+  rllib:             {category: rl,             vendor: "Anyscale",         risk_note: "Distributed RL"}
+  cleanrl:           {category: rl,             vendor: "CleanRL",          risk_note: "Single-file RL implementations"}
+
+  # --- Multimodal / generative ---
+  diffusers:         {category: multimodal,     vendor: "Hugging Face",     risk_note: "Image/video generation - synthetic content"}
+  controlnet-aux:    {category: multimodal,     vendor: "Community",        risk_note: "ControlNet auxiliary processors"}
+  invisible-watermark: {category: multimodal,   vendor: "invisible-watermark",risk_note: "Generative content watermarking"}
+  pillow:            {category: cv,             vendor: "Pillow",           risk_note: "Image processing (general - verify AI use)"}
+  torchvision:       {category: cv,             vendor: "PyTorch",          risk_note: "Vision models and transforms"}
+
+  # --- Safety / fairness / explainability ---
+  shap:              {category: security,       vendor: "SHAP",             risk_note: "Model explainability (XAI)"}
+  lime:              {category: security,       vendor: "lime",             risk_note: "Model explainability (XAI)"}
+  alibi:             {category: security,       vendor: "Seldon",           risk_note: "ML explainability and drift detection"}
+  alibi-detect:      {category: security,       vendor: "Seldon",           risk_note: "Anomaly detection / distribution shift"}
+  aif360:            {category: security,       vendor: "IBM",              risk_note: "AI Fairness 360 - bias detection/mitigation"}
+  fairlearn:         {category: security,       vendor: "Microsoft",        risk_note: "Fairness assessment and mitigation"}
+  privacyraven:      {category: security,       vendor: "Trail of Bits",    risk_note: "Privacy testing for ML models"}
+  cleverhans:        {category: security,       vendor: "Google/cleverhans",risk_note: "Adversarial attack benchmarks"}
+  foolbox:           {category: security,       vendor: "Bethge Lab",       risk_note: "Adversarial attacks and robustness"}
+  art:               {category: security,       vendor: "IBM",              risk_note: "Adversarial Robustness Toolbox"}
+  presidio-analyzer: {category: security,       vendor: "Microsoft",        risk_note: "PII detection in LLM I/O"}
+  langchain-experimental: {category: security,  vendor: "LangChain",        risk_note: "Experimental agents - review security"}
+  nemoguardrails:    {category: security,       vendor: "NVIDIA",           risk_note: "LLM guardrails"}
+  llm-guard:         {category: security,       vendor: "Protect AI",       risk_note: "LLM security guardrails"}
+  guardrails-ai:     {category: security,       vendor: "Guardrails AI",    risk_note: "LLM output validation"}
+
+  # --- Data processing / pipelines ---
+  pandas:            {category: data,           vendor: "pandas",           risk_note: "Data manipulation (general - verify AI pipeline use)"}
+  polars:            {category: data,           vendor: "Polars",           risk_note: "Fast dataframe library"}
+  numpy:             {category: data,           vendor: "NumPy",            risk_note: "Numerical computing foundation"}
+  scipy:             {category: data,           vendor: "SciPy",            risk_note: "Scientific computing"}
+  pyarrow:           {category: data,           vendor: "Apache",           risk_note: "Columnar data format (data provenance)"}
+  dask:              {category: data,           vendor: "Dask",             risk_note: "Parallel computing for large datasets"}
+  spark:             {category: data,           vendor: "Apache",           risk_note: "Big data processing"}
+  pyspark:           {category: data,           vendor: "Apache",           risk_note: "PySpark - large-scale data processing"}
+
+javascript:
+  openai:                    {category: model-provider, vendor: "OpenAI",     risk_note: "External LLM API"}
+  "@anthropic-ai/sdk":       {category: model-provider, vendor: "Anthropic",  risk_note: "External LLM API"}
+  "@google/generative-ai":   {category: model-provider, vendor: "Google",     risk_note: "External LLM API (Gemini)"}
+  "@google-cloud/aiplatform": {category: model-provider, vendor: "Google",    risk_note: "Vertex AI"}
+  cohere-ai:                 {category: model-provider, vendor: "Cohere",     risk_note: "External LLM API"}
+  mistralai:                 {category: model-provider, vendor: "Mistral AI", risk_note: "External LLM API"}
+  groq-sdk:                  {category: model-provider, vendor: "Groq",       risk_note: "External LLM API"}
+  together:                  {category: model-provider, vendor: "Together AI", risk_note: "External LLM API"}
+  "@huggingface/inference":  {category: model-provider, vendor: "Hugging Face", risk_note: "HF Inference API"}
+  langchain:                 {category: orchestration,  vendor: "LangChain",  risk_note: "LLM orchestration"}
+  "@langchain/core":         {category: orchestration,  vendor: "LangChain",  risk_note: "LangChain core"}
+  "@langchain/openai":       {category: orchestration,  vendor: "LangChain",  risk_note: "LangChain OpenAI integration"}
+  "@langchain/anthropic":    {category: orchestration,  vendor: "LangChain",  risk_note: "LangChain Anthropic integration"}
+  llamaindex:                {category: orchestration,  vendor: "LlamaIndex", risk_note: "RAG orchestration"}
+  "@llamaindex/core":        {category: orchestration,  vendor: "LlamaIndex", risk_note: "LlamaIndex core"}
+  ai:                        {category: orchestration,  vendor: "Vercel",     risk_note: "Vercel AI SDK"}
+  "@vercel/ai":              {category: orchestration,  vendor: "Vercel",     risk_note: "Vercel AI SDK"}
+  "@modelcontextprotocol/sdk": {category: orchestration, vendor: "Anthropic", risk_note: "MCP - inventory tools/data"}
+  "@xenova/transformers":    {category: nlp,            vendor: "Hugging Face", risk_note: "In-browser model inference"}
+  "@huggingface/transformers": {category: nlp,          vendor: "Hugging Face", risk_note: "JS Transformers library"}
+  "@tensorflow/tfjs":        {category: framework,      vendor: "Google",     risk_note: "Browser/Node DL framework"}
+  "@tensorflow/tfjs-node":   {category: framework,      vendor: "Google",     risk_note: "TF.js Node backend"}
+  onnxruntime-node:          {category: inference,      vendor: "Microsoft",  risk_note: "Model inference runtime"}
+  onnxruntime-web:           {category: inference,      vendor: "Microsoft",  risk_note: "Browser ONNX inference"}
+  "@tensorflow-models/coco-ssd": {category: cv,         vendor: "Google",     risk_note: "Object detection model"}
+  "@tensorflow-models/face-detection": {category: cv,   vendor: "Google",     risk_note: "BIOMETRIC face detection"}
+  "@tensorflow-models/facemesh": {category: cv,         vendor: "Google",     risk_note: "BIOMETRIC face mesh"}
+  "@tensorflow-models/pose-detection": {category: cv,   vendor: "Google",     risk_note: "Pose estimation (surveillance risk)"}
+  chromadb:                  {category: vector-db,      vendor: "Chroma",     risk_note: "Vector store"}
+  "@pinecone-database/pinecone": {category: vector-db,  vendor: "Pinecone",   risk_note: "External vector store - data residency"}
+  weaviate-ts-client:        {category: vector-db,      vendor: "Weaviate",   risk_note: "Vector store"}
+  "@qdrant/js-client-rest":  {category: vector-db,      vendor: "Qdrant",     risk_note: "Vector store"}
+  vectra:                    {category: vector-db,      vendor: "vectra",     risk_note: "Local vector index"}
+  faiss-node:                {category: vector-db,      vendor: "faiss-node", risk_note: "Local vector index"}
+
+# File extensions that indicate a serialized model artifact lives in the repo.
+model_file_extensions:
+  - {ext: ".pt",          type: "PyTorch weights"}
+  - {ext: ".pth",         type: "PyTorch weights"}
+  - {ext: ".safetensors", type: "SafeTensors weights (preferred format)"}
+  - {ext: ".onnx",        type: "ONNX model"}
+  - {ext: ".gguf",        type: "GGUF quantized model (llama.cpp)"}
+  - {ext: ".ggml",        type: "GGML quantized model (legacy)"}
+  - {ext: ".h5",          type: "Keras/HDF5 model"}
+  - {ext: ".keras",       type: "Keras model format"}
+  - {ext: ".pb",          type: "TensorFlow SavedModel protobuf"}
+  - {ext: ".tflite",      type: "TensorFlow Lite model"}
+  - {ext: ".pkl",         type: "Pickled model (review: arbitrary-code risk)"}
+  - {ext: ".joblib",      type: "scikit-learn / joblib model"}
+  - {ext: ".bin",         type: "Binary weights (verify: many formats use this)"}
+  - {ext: ".mar",         type: "TorchServe model archive"}
+  - {ext: ".mlmodel",     type: "Apple CoreML model"}
+  - {ext: ".pmml",        type: "PMML model interchange format"}
+  - {ext: ".cbm",         type: "CatBoost model"}
+  - {ext: ".xgb",         type: "XGBoost model"}
+  - {ext: ".model",       type: "Generic model file (verify format)"}
+  - {ext: ".weights",     type: "Model weights (Darknet/YOLO)"}
+  - {ext: ".ckpt",        type: "Checkpoint file (TF / PyTorch Lightning)"}
