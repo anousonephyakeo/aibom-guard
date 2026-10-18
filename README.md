@@ -320,6 +320,12 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for setup, conventions, and the PR checkl
 
 ---
 
+## Author
+
+Built by [Anousone Phyakeo](https://anousonephyakeo.github.io), an offensive security and GRC engineer from Laos, based in Budapest. [LinkedIn](https://www.linkedin.com/in/anousonepk/) · [GitHub](https://github.com/anousonephyakeo)
+
+---
+
 ## License
 
 MIT — see [LICENSE](LICENSE).
